@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <g transform="translate(0 -9)">
+  <g fill="none" stroke="white" stroke-width="12" stroke-linejoin="miter">
+    <path d="M 90 158 H 166 V 234 H 90 Z"/>
+    <path d="M 82 148 L 56 126 L 76 102 L 50 82 L 66 62 M 174 148 L 200 126 L 180 102 L 206 82 L 190 62"/>
+  </g>
+  <path d="M 42 34 L 98 56 L 64 80 Z M 214 34 L 158 56 L 192 80 Z" fill="white"/>
+  <text x="128" y="136" fill="white" text-anchor="middle" font-family="Arial, DejaVu Sans, sans-serif" font-weight="bold" font-size="68">S</text>
+  </g>
+</svg>

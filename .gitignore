@@ -1,0 +1,4 @@
+.build/
+dist/
+tools/node_modules/
+docs/

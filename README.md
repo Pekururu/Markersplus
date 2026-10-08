@@ -1,2 +1,123 @@
-# Markersplus
- Extended marker library for ARMA 3
+# MarkersPlus
+
+An extended marker library and placement panel for Arma 3. Includes 50 symbols under Tasks, Movement and Maneuver, and Points in the standard marker picker.
+
+## Placement panel
+
+The panel defaults to **Side**, independently of your active chat channel. If the mission disables Side markers, it defaults to **Local only (you)**.
+
+Load **CBA_A3 and ACE3** alongside MarkersPlus. The placement UI requires CBA for keybindings, settings, and initialization, and ACE's `ace_markers` and `ace_interact_menu` components for moving and editor integration. The marker library remains in its own PBO, preserving existing mission marker classes.
+
+On the mission map, click the **pin icon** on the right edge or press **Ctrl+Shift+M**. The two square map buttons are stacked and vertically centered on the right edge: pin for the marker library, crosshair for contact reports. Both use matching padded line icons, subtle borders and hover tooltips. Change the shortcut under Configure Addons in the controls menu. Search by marker name or class identifier, or filter by category. Choose a label, colour, size multiplier (0.25–4), direction, and sharing channel.
+
+Choose an icon in the grid, then click the map to place it; there is no separate start click. A translucent symbol follows the cursor before placement. **Place marker** can also start placement using the current options. Each successful placement stops placement automatically and removes the cursor preview. Choose an icon or click Place marker to place another; the panel stays open. There is no Repeat option. **Esc** or **Cancel placement** stops placement; another Esc closes the panel. Closing the map also cancels placement. Normal map dragging remains available. The panel uses 24% of screen width and 64% of screen height, with paired fields and editing buttons shown only for a selection. The scrollable grid shows five icons per row. Hovering or selecting an icon shows a bold marker name above a separate purpose description beneath the grid. Placement mode uses five full icon rows; selecting an existing marker reserves an action row and reduces the grid to four full rows. The panel keeps its outer size and field order, with no empty row reserved for hidden editing buttons. All 50 markers have purpose hints; search and category filtering remain available.
+
+For new markers, a quick click places using the current angle. Hold the left button for 0.3 seconds to rotate: the preview stays at the point where you pressed, and moving the cursor aims it toward the cursor. Release on the map to place it. A yellow guide line shows the direction. Esc cancels without placing, and releasing over the panel cancels that gesture. After every successful placement, the label clears and the angle resets to 0 degrees for the next marker; the placed marker keeps its label and chosen direction. Moving existing markers uses ACE's Alt + left-drag gesture.
+
+The colour picker and CBA default-colour setting include all public `CfgMarkerColors` entries from the loaded configuration, with localised names. The picker shows colour swatches. This includes the vanilla colours omitted by the original fixed list, plus public colours added by other mods. Profile-based colour expressions are resolved for swatches and previews.
+
+**Local only (you)** creates a personal marker. Delete it by pointing at it on the map and pressing Delete. Shared markers use Arma's marker channels and native user-marker naming so the standard map tools can handle them. Available channels are Group, Side, Command, Vehicle, and Global, subject to mission restrictions. Vehicle is offered while in a vehicle. Direct and custom radio channels are not included in this first version.
+
+Click one of your MarkersPlus markers to open the panel and select it, even if the panel was closed. Double-clicking your MarkersPlus marker also opens this editor instead of the default editor. Other marker types keep ACE's editor. A yellow outline identifies the selection, and its symbol, label, colour, size, and direction load into the panel. Changes to the symbol, label, colour, size, and angle save immediately; there is no Apply button. Blank or invalid numeric input keeps the last valid size or angle while other fields remain editable. Loading or hovering a marker does not write changes. Move markers with **Alt + left-drag**, subject to ACE's marker movement permission setting; there is no separate MarkersPlus Move tool. **Delete** removes the selection. **Duplicate** copies the selected marker and starts placement; click the map to place the copy, or hold and drag to rotate it. The copy keeps the label, colour, size, angle, sharing channel, opacity and shadow. Changing its options before placement changes the copy. The original stays in place; Esc cancels the copy. Clicking empty map space while not placing clears the selection.
+
+Editing preserves the marker's sharing channel; the channel selector is locked while a marker is selected. Personal markers stay local through editing and moving. Only your own MarkersPlus icon markers can be selected, including those placed through the standard picker in the current mission. Mission-authored markers and other players' markers are excluded. If the original channel becomes unavailable, changes are blocked. Closing the map clears selection and cancels unfinished placement. ACE handles the lifecycle of its drag gesture.
+
+Default colour and size are configurable under **Addon Options → MarkersPlus**. Choices made in the panel are remembered during the mission. The panel targets the player mission map; Eden and briefing maps continue to use the standard marker picker. ACE moves shared markers with its network/JIP handling; personal moves are committed locally through its move-completion hook. Shared markers are registered in ACE's marker cache after placement and editing.
+
+## Favorites and saved map plans
+
+Right-click a symbol in the grid to add or remove a favorite. Favorites have a gold icon and an asterisk in their hover hint. Choose **Favorites** in the category selector to show them. They are stored in your Arma player profile across missions and restarts. The **+** beside the purpose heading also favorites the selected symbol; **\*** removes it. Empty categories explain how to add favorites or change filters. The panel heading distinguishes editing and copying.
+
+Click **Plans** in the panel title, or **MarkersPlus: Saved map plans** in ACE self-interaction. **Save map** saves your own user-placed icons, drawn lines (native polylines), rectangles and ellipses, including vanilla and addon marker types. Mission-authored markers and other players' markers are excluded. Each record keeps its position, label, colour, angle, size, opacity, brush, shadow and line coordinates. Contact markers also keep their full structured report: type, count, identification, activity, movement, accuracy, note, original reporter, reporter position and observation date/time. Plans are stored in the active Arma profile on your computer; no server database is required.
+
+Plans are grouped by terrain. Plans from other terrains can be inspected, exported or deleted, but only loaded on their original terrain. Enter a name and click **Save map**. Saving over an existing name requires a second click within five seconds. Empty plans cannot replace saved plans.
+
+Each plan shows a summary of its icons, contact reports, lines and areas. Reports are included in the icon count. Choose a plan and its **Load as** sharing channel, then **Load plan**; double-clicking the plan also loads it using that channel. Saving or importing keeps the resulting plan selected. Empty lists explain how to save or import a plan. The default is **Local only (you)**; shared loads use the selected available Arma channel for the entire plan. Original channels are not restored. Loading adds markers without clearing the map. Repeated loads create separate copies. **Undo load** removes only the most recent loaded batch in this mission, including copies you moved or edited through MarkersPlus, and leaves the saved plan and other markers alone. It does not undo earlier loads. A missing marker type, colour or brush blocks loading before any markers are created.
+
+Personal vanilla icons loaded from plans also use the MarkersPlus editor, preserving their privacy instead of going through ACE's shared-marker replacement editor. The grid still offers MarkersPlus symbols; choosing one replaces that icon's type. Shared vanilla icons retain ACE's editor.
+
+**Export** copies the selected plan as text. **Import** reads that text from the clipboard into your profile; it does not place markers. Replacing a plan during import and deleting a saved plan both require a second click within five seconds. Clipboard data is parsed as arrays, never executed as code. Import/export uses MarkersPlus's own versioned format; Map Marker Setter profiles are not automatically imported. Plans support up to 5,000 markers and 10,000 points per line. Existing v1 plans remain readable and unchanged until explicitly overwritten. Plans containing full reports use format v2; ordinary plans still export as v1. Older builds reject v2 imports rather than dropping report fields. The updated plan registry uses a separate profile key and retains the previous registry as a rollback copy; previous builds do not see later changes made in the new registry. Old plans that saved contact icons as ordinary markers cannot recover report details that were never stored.
+
+For this build, check favorites after restarting Arma, then save a plan containing MarkersPlus and vanilla icons, a drawn line and an area. Load it in another mission on the same terrain. Check appearance and coordinates, Local privacy, Side sharing, Undo after moving/editing, and import/export. Check the ACE entry after respawn, and the terrain and missing-addon load guards. In multiplayer, check another player's view and a player joining later on both a hosted and dedicated server. In-game verification belongs to the user.
+
+## Contact reports
+
+Open the **crosshair icon** beneath the marker-library pin on the right edge of the mission map, or **MarkersPlus: Contact report** through ACE self-interaction. A Contact report shortcut is available under Configure Addons; it is unbound by default. Opening from ACE or the shortcut opens the map too. The compact contact panel replaces the placement panel while it is open. The preview scroll range fits the report text, without a blank scrolling tail. Long reports remain scrollable.
+
+Click the observed location, choose **Type**, and optionally enter **Count** and **Activity**, then **Create report**. Type and activity start Unknown; a blank count remains unknown. Sharing defaults to Side, with Local as the fallback if Side is disabled. Creation ends picking; **New** starts another report. The location button lets you choose a different point before submission. Map dragging and ACE Alt-drag remain available; Esc cancels picking, then closes the tool.
+
+Identification (Unknown/Friendly/Hostile/Civilians) is the first main field, alongside sharing, followed by type/count and activity/movement direction. Movement direction is enabled only for Moving activity. **Details +** exposes location accuracy (Estimated/Precise), observation time and a short note. The default observation time and reporter position are captured when the first point is selected. Times use the mission clock, HH:MM. Editing a note or adjusting the point keeps that observation time; **Now** captures a new time, reporter identity and reporter position. An earlier time can be entered manually for an observation on the recorded mission date.
+
+Contact types use Arma's unit-symbol roles: Infantry, Motorized infantry, Mechanized infantry, Armour / tanks, Reconnaissance, Artillery, Mortars, Air defence, Helicopters, Fixed-wing aircraft, UAV, Naval / boats, Headquarters, Support, Medical, Maintenance / repair, Service / logistics, Installation and Ordnance / EOD. Unknown, Vehicle (unspecified) and Aircraft (unspecified) remain available. The selector shows the corresponding icon; tooltips explain common distinctions. Self-propelled artillery belongs under Artillery, rather than Armour. Friendly and Hostile use the matching unit symbol; Unknown identification remains the yellow unknown symbol. Civilians retain civilian symbols and the selected role in the label. Compact list rows and map labels use distinct abbreviations, while full previews and copied reports spell out the type.
+
+An asterisk after the unit type means the report has a note, for example `2 ART* | FIRING | 12:02`. Open the report to read it. Empty or whitespace-only notes do not add an asterisk; clearing a note and updating the report removes it.
+
+Existing report keys and saved plans remain readable. Legacy Vehicle and Air values are displayed as unspecified vehicle/aircraft instead of implying motorized infantry or a helicopter. Update the server and clients together to share the new types: older builds reject unfamiliar report types and show only the marker without full details. Older builds also reject plans containing unfamiliar report types.
+
+The live report preview includes type, count, identification, grid, activity, observation date/time, reporter and rounded map-derived bearing/distance from the reporter's recorded position. **Copy report** copies it for reading over voice or pasting manually. Report text is not automatically transmitted through chat or radio mods. The report preview, copied text and short map label use uppercase, including notes and reporter names. Labels use vertical-bar separators, for example `4 INF | MOV NE | 14:32`. Unknown uses Arma's yellow unknown marker; Friendly uses blue friendly symbols, Hostile red hostile symbols, and Civilians purple civilian symbols. These describe reported allegiance, independently of the reporter's game faction. Map labels omit identification prefixes and show count/type, known activity and observation time. Stationary uses `STATIC`, Moving uses `MOV` plus a known direction, and Firing uses `FIRING`. Unknown activity is omitted; an unknown count is shown as `?`. For example: `2 ART | FIRING | 12:02` or `? INF | 14:32`. Full reports and the contact list still show identification explicitly. For Civilians, Infantry is displayed as People and abbreviated PERS; its stored type is retained. Arma has no civilian infantry or armour symbol, so these use a generic civilian symbol with the reported type in the label. Changing identification preserves count, activity, movement, notes, observation time and sharing. Firing remains available for every identification and does not automatically change allegiance. Location accuracy remains a separate field. Arma colours are retained.
+
+Click a contact marker to see its full report. Your own reports expose **Update report** and **Delete**; other players' reports are read-only. Updates are explicit report submissions, preserving the original observation time unless changed. Marker movement uses ACE. Reports are observations at a recorded time; there is no expiry, automatic target detection or live entity tracking.
+
+Use **List** in the contact panel header, or **MarkersPlus: Contact list** through ACE self-interaction, to expand a boxed list to the left of the report panel. It shows all received reports, with identification first, then type/count, activity/movement, current grid and original observation time. Click a row once to center the map and open its details while the list stays open. Other players' reports stay read-only. The list refreshes as reports arrive, change, move or are deleted; it does not reveal reports outside your sharing scope. **List** or the list's **X** collapses it. Closing the contact tool closes both panels. Opening another report discards unsent edits to the previous report.
+
+Shared full details and joining-player synchronization require MarkersPlus on the server as well as the reporting/viewing clients, alongside CBA and ACE. Server-held report metadata is sent only to the report's channel audience; Local reports are kept on the reporting client and are never sent to the server. Details refresh when opening the map, including after group or side changes. A server without MarkersPlus can still receive ordinary shared markers, but the viewer shows a message that full details are unavailable. Report metadata lasts for the mission; it does not use a persistent server database.
+
+Saved map plans now preserve full contact reports, including through clipboard import/export. Loading restores them as selectable reports owned by the loading player, while preserving the original observer, observer position and observation date/time. The selected load channel applies to the restored reports. Local loads keep full details local; shared loads publish them through the existing channel-scoped server handling. Undo removes the created markers and their report metadata. Saving is blocked if one of your contact markers has missing report details, rather than silently losing them.
+
+For manual testing, create Unknown, Friendly, Hostile and Civilians reports with unknown and entered counts. Check map dragging, changing the chosen point, Details expansion, movement direction, invalid count/time feedback, Copy report, New, selection and deletion. Update a note and confirm observation time remains; use Now and confirm reporter position/time refresh. Check Local privacy and ACE movement, then Group/Side visibility and read-only full details with another player. With MarkersPlus loaded on a dedicated server, check a joining player receives the allowed reports and a player on another side does not. Existing marker editing, favorites, duplication and plans remain available through the pin icon.
+
+## Build
+
+Install Arma 3 Tools through Steam, then run from the repository root:
+
+```powershell
+.\tools\build.ps1
+```
+
+The script finds Arma 3 Tools in your Steam libraries. You can also pass `-ToolsPath 'D:\SteamLibrary\steamapps\common\Arma 3 Tools'` or set `ARMA3_TOOLS`.
+
+The output is `Testing\@MarkersPlus` inside the Arma 3 installation, ready to load as a local mod. The folder contains `mod.cpp`, this README, `addons\MarkersPlus.pbo`, and `addons\MarkersPlus_UI.pbo`. Add that `@MarkersPlus` folder through the launcher's Local mod option and enable CBA_A3 and ACE3.
+
+The script looks for Arma 3 beside Arma 3 Tools. If the game is in another library, pass `-ArmaPath 'D:\SteamLibrary\steamapps\common\Arma 3'` or set `ARMA3_PATH`. To build elsewhere, pass `-OutputDirectory '.\dist\@MarkersPlus'`.
+
+The PBOs are unsigned. Signing for servers is a separate step using your own key.
+
+The build validates both configs and uses Addon Builder with the explicit `markersplus` and `markersplus_ui` prefixes. Only addon source and runtime data are staged for packing. Temporary build files stay in `.build`. In-game testing is manual.
+
+For a manual Addon Builder build, use `addons\MarkersPlus` as the source, set the addon prefix to `markersplus`, enable binarization, and include `*.paa` in the files copied directly. `A3_Data_F` is required because it defines the inherited `CfgMods/Mod_Base` class.
+
+Build `addons\MarkersPlus_UI` separately with prefix `markersplus_ui`, binarization enabled, and `*.sqf;*.hpp` copied directly. Its dependencies are `mplus_markers`, `A3_UI_F`, `cba_xeh`, `cba_keybinding`, `cba_settings`, `ace_markers`, and `ace_interact_menu`.
+
+## Artwork
+
+The updated markers have editable SVG sources in `artwork\icons`; the two map-tool button icons are in `artwork\ui`. Both sets are regenerated by the artwork build. They use white artwork and transparency so Arma can apply marker colours. Keep shapes centred on the 256 × 256 canvas. Point symbols retain the point-symbol outline, with horizontal abbreviations; their centre is the marker coordinate, not the bottom tip.
+
+Install Node.js to regenerate these textures:
+
+```powershell
+.\tools\build.ps1 -RebuildIcons
+```
+
+This installs the locked SVG renderer, renders PNGs, and converts them with Arma 3 Tools' ImageToPAA. Arial Bold is used for lettering; install that font when reproducing exports on another system. PNG intermediates are not packed.
+
+`artwork\originals` contains decoded PNG copies of all original icons. They preserve the previous artwork for editing or comparison; the original vector sources were not available. Unchanged icons keep their existing PAA files. To convert an edited original PNG, use ImageToPAA and retain its existing PAA filename. Use a `_ca.png` input name to identify transparent artwork.
+
+Generic Point uses a 16-pixel canvas size; task, movement, and collection-point icons use 40. Waypoint retains the original cross artwork. All 49 previous marker class identifiers remain available, including the legacy spelling `mplus_supress`. The new marker is `mplus_detaineepoint`.
+
+## In-game check
+
+Load CBA_A3, ACE3, and the built mod. On the mission map, check the pin button and shortcut, search and category filtering, cursor preview, label, colour, size, and rotation. Confirm one placement stops the preview, including hold-to-rotate placement. Check map dragging, Esc cancellation before placement, and reopening the map without duplicate controls. Check that Delete still edits text fields normally.
+
+Place a Local only marker, delete it with the cursor and Delete, and confirm another player cannot see it. In multiplayer, check Group and Side visibility with players in different groups and sides. Confirm disabled channels are unavailable and that the normal map tools can edit and delete shared markers. These gameplay and network checks are performed manually by the user.
+
+Select personal and shared markers with the panel closed and open. Double-click your MarkersPlus markers and confirm the MarkersPlus editor opens; confirm vanilla markers still open ACE's editor. Check loaded options, then change each field and confirm it updates without Apply. Clear a numeric field temporarily, change the label or colour, and confirm the invalid number does not reset size or direction. Check pasting and cutting label text too. Enable ACE marker movement, including its owner-only permission option, then Alt-drag personal and shared markers. Confirm personal markers stay private and shared markers retain their channel. Check a joining player sees the final shared marker position after an ACE move or MarkersPlus edit. Delete a selected marker. Check selection from the standard marker picker, exclusion of other players' markers from the MarkersPlus editor, empty-space deselection, and ordinary map dragging.
+
+Check all three marker categories in Eden and the mission map. Place point, task, and movement markers over light and busy terrain; check colour, labels, size, and rotation. In particular, compare CCP, CKP, ASP, Guard, Screen, and Cover at normal zoom. Generic Point should remain a small, centred dot.
+
+Load an existing mission that uses MarkersPlus and check its marker types. Review the Arma RPT for config or missing-texture errors. Repeat the map check with the mods your group normally uses.
+
+For the UI and duplication pass, check the +/* favorite control, empty Favorites and search results, plan summaries and double-click loading. Duplicate a labeled Local marker and a Side marker; confirm the original stays in place, the copy retains its appearance/channel, hold-to-rotate works, and Esc cancels. Confirm successful placement clears the label and angle for the next marker.
+
+For full contact persistence, save a mixed plan with ordinary markers, a line/area and all four contact identifications. Restart or change mission on the same terrain, load Local and select each report: compare note, activity, movement, accuracy, reporter, observer grid and original observation time/date. Repeat with Side loading and another player, then check Undo and a joining player. Export/import the plan into another profile and verify full details. Load/export an existing v1 plan to check compatibility. These gameplay checks are delegated to the user.
+
+For the contact list, open it from the panel and ACE self-interaction. Check the attached dark background, all available reports and the empty state. Click rows and confirm the map centers on each marker and opens the report with the correct edit permissions while the list stays open. Move/update/delete reports while another player has the list open; check refreshed rows and Group/Side/Local visibility. Collapse/reopen the list and close/reopen the map to check controls do not duplicate. Confirm list clicks do not place or delete markers behind the panel. Leave count blank and create a report; check that it shows an unknown count.

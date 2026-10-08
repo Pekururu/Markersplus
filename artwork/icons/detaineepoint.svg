@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <path d="M 28 24 H 228 V 160 L 128 232 L 28 160 Z" fill="none" stroke="white" stroke-width="12" stroke-linejoin="miter"/>
+  <path d="M 28 160 H 228" fill="none" stroke="white" stroke-width="12"/>
+  <text x="128" y="122" fill="white" text-anchor="middle" font-family="Arial, DejaVu Sans, sans-serif" font-weight="bold" font-size="64">DET</text>
+</svg>

@@ -1,0 +1,11 @@
+{
+  "name": "markersplus-artwork",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "icons": "node rebuild-icons.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "2.6.2"
+  }
+}
