@@ -13,6 +13,6 @@ _display setVariable ["mplus_selectedType",_type];
 [_display,_type] call mplus_fnc_showPurpose;
 if ((_display getVariable ["mplus_selectedMarker",""]) == "") then {
     _display setVariable ["mplus_duplicateStyle",[]];
-    (_display displayCtrl MP_PANEL controlsGroupCtrl MP_TITLE) ctrlSetText "MarkersPlus";
+    (_display displayCtrl MP_PANEL controlsGroupCtrl MP_TITLE) ctrlSetText "Markers";
     [_display,true] call mplus_fnc_setPlacement;
 } else {[_display] call mplus_fnc_liveEdit};

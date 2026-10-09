@@ -16,7 +16,7 @@ class mplus_Plans
         };
         class Title: mplus_Text
         {
-            idc=-1; text="MarkersPlus - Saved map plans";
+            idc=-1; text="Saved plans";
             font="RobotoCondensedBold";
             x="safeZoneX + 0.30 * safeZoneW"; y="safeZoneY + 0.23 * safeZoneH";
             w="0.30 * safeZoneW"; h="0.03 * safeZoneH";

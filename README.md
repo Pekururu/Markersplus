@@ -1,7 +1,5 @@
 # MarkersPlus
 
-<img src="artwork/branding/markersplus-logo.png" alt="MarkersPlus logo" width="256">
-
 An extended marker library and placement panel for Arma 3. Includes 50 symbols under Tasks, Movement and Maneuver, and Points in the standard marker picker.
 
 ## Placement panel
@@ -79,6 +77,8 @@ Click a contact marker to see its full report. Marker and contact selections use
 Use **List** in the contact panel header, or **M+ → Contact list** through ACE self-interaction, to expand a boxed list to the left of the report panel. It shows all received reports, with identification first, then type/count, activity/movement, current grid and original observation time. Click a row once to center the map and open its details while the list stays open. Other players' reports stay read-only. The list refreshes as reports arrive, change, move or are deleted; it does not reveal reports outside your sharing scope. **List** or the list's **X** collapses it. Closing the contact tool closes both panels. Opening another report discards unsent edits to the previous report.
 
 Shared full details and joining-player synchronization require MarkersPlus on the server as well as the reporting/viewing clients, alongside CBA and ACE. Server-held report metadata is sent only to the report's channel audience; Local reports are kept on the reporting client and are never sent to the server. Details refresh when opening the map, including after group or side changes. A server without MarkersPlus can still receive ordinary shared markers, but the viewer shows a message that full details are unavailable. Report metadata lasts for the mission; it does not use a persistent server database.
+
+Contact marker names preserve Arma's native owner/marker/channel format. New reports reserve numeric marker IDs from 2,000,000 to 2,999,999 instead of appending a report suffix, which could make Arma treat the marker as Global. Existing suffixed reports remain recognizable, but their already-created channel is not repaired in place. Restart the mission or reload a saved plan to create correctly named reports. Saved report data and plan formats are unchanged. Update both clients and the server for the new naming convention.
 
 Saved map plans now preserve full contact reports, including through clipboard import/export. Loading restores them as selectable reports owned by the loading player, while preserving the original observer, observer position and observation date/time. The selected load channel applies to the restored reports. Local loads keep full details local; shared loads publish them through the existing channel-scoped server handling. Undo removes the created markers and their report metadata. Saving is blocked if one of your contact markers has missing report details, rather than silently losing them.
 

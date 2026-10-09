@@ -65,7 +65,7 @@ class mplus_Panel: RscControlsGroupNoScrollbars
         };
         class Title: mplus_Text
         {
-            idc=MP_TITLE; text="MarkersPlus";
+            idc=MP_TITLE; text="Markers";
             font="RobotoCondensedBold";
             x="0.009 * safeZoneW"; y="0.009 * safeZoneH";
             w="0.125 * safeZoneW"; h="0.032 * safeZoneH";

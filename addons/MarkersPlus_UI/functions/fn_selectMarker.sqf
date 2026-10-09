@@ -8,7 +8,7 @@ _display setVariable ["mplus_selectedMarker",_marker];
 _display setVariable ["mplus_editInputs",[]];
 [_display,false] call mplus_fnc_setPlacement;
 private _editing = _marker != "";
-(_panel controlsGroupCtrl MP_TITLE) ctrlSetText (["MarkersPlus","MarkersPlus: Edit"] select _editing);
+(_panel controlsGroupCtrl MP_TITLE) ctrlSetText (["Markers","Edit marker"] select _editing);
 {
     (_panel controlsGroupCtrl _x) ctrlEnable _editing;
     (_panel controlsGroupCtrl _x) ctrlShow _editing;

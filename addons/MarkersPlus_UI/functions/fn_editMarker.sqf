@@ -27,7 +27,7 @@ switch _action do {
         [_display,""] call mplus_fnc_selectMarker;
         _display setVariable ["mplus_duplicateStyle",_style];
         [_display,true] call mplus_fnc_setPlacement;
-        (_panel controlsGroupCtrl MP_TITLE) ctrlSetText "MarkersPlus: Copy";
+        (_panel controlsGroupCtrl MP_TITLE) ctrlSetText "Duplicate marker";
         (_panel controlsGroupCtrl MP_STATUS) ctrlSetText "Click to place the copy. Hold + drag rotates. Esc cancels.";
     };
     case "update": {

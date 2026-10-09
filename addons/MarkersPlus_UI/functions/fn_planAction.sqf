@@ -96,9 +96,8 @@ private _result = switch (_action) do {
         {
             _x params ["_alpha","_brush","_color","_dir","_line","_pos","_shadow","_shape","_size","_text","_type"];
             private _contact = if ((_plan select 0) == 2) then {+(_x select 11)} else {[]};
-            private _name = [_channel] call mplus_fnc_newMarkerName;
+            private _name = [_channel,_contact isNotEqualTo []] call mplus_fnc_newMarkerName;
             if (_contact isNotEqualTo []) then {
-                _name = _name + "/MP_CONTACT";
                 _text = ([_contact,_pos] call mplus_fnc_formatContact) select 0;
                 ([_contact] call mplus_fnc_contactAppearance) params ["_contactType","_contactColor"];
                 _type = _contactType;

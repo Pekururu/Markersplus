@@ -22,8 +22,16 @@ for (const [folder, destination] of jobs) {
   if (process.argv.includes('--ui-only') && folder !== 'ui') continue;
   if (process.argv.includes('--branding-only') && folder !== 'branding') continue;
   const sources = join(root, 'artwork', folder);
+  let files;
+  try {
+    files = await readdir(sources);
+  } catch (error) {
+    // Branding sources are local-only; fresh checkouts keep the runtime PAA.
+    if (folder === 'branding' && error.code === 'ENOENT' && !process.argv.includes('--branding-only')) continue;
+    throw error;
+  }
   await mkdir(destination, { recursive: true });
-  for (const file of (await readdir(sources)).filter(file => file.endsWith('.svg')).sort()) {
+  for (const file of files.filter(file => file.endsWith('.svg')).sort()) {
     const stem = folder === 'branding' ? 'logo' : file.slice(0, -4);
     const png = join(output, `${stem}_ca.png`);
     const paa = join(destination, `${stem}.paa`);

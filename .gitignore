@@ -1,4 +1,31 @@
-.build/
-dist/
-tools/node_modules/
-docs/
+# Local documentation and presentation sources
+/docs/
+/artwork/branding/
+/screenshots/
+*.xcf
+*.psd
+*.kra
+
+# Builds and Workshop distribution files
+/.build/
+/build/
+/dist/
+/Testing/
+/keys/
+*.pbo
+*.bisign
+*.bikey
+*.biprivatekey
+*.zip
+*.7z
+
+# Dependencies, logs and editor state
+node_modules/
+*.log
+*.rpt
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

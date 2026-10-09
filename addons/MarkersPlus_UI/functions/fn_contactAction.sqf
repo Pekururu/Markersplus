@@ -87,7 +87,7 @@ if (_action == "delete") exitWith {
 if (_action != "submit" || {_position isEqualTo []} || {_record isEqualTo []}) exitWith {};
 private _marker = _selected;
 if (_marker == "") then {
-    private _name = ([_channel] call mplus_fnc_newMarkerName) + "/MP_CONTACT";
+    private _name = [_channel,true] call mplus_fnc_newMarkerName;
     _marker = if (_channel == -2) then {createMarkerLocal [_name,_position]} else {createMarker [_name,_position,_channel,player]};
 };
 if (_marker == "") exitWith {(_display displayCtrl MP_CONTACT_STATUS) ctrlSetText "Could not create marker. Try again."};

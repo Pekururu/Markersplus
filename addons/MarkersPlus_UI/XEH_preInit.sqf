@@ -8,7 +8,7 @@ private _names = _colors apply {_x select 1};
 
 ["mplus_showToolbar", "CHECKBOX", ["Show map toolbar", "Show the marker and contact buttons on the map."], ["MarkersPlus","Interface"],
     true, 2, {if (hasInterface) then {call mplus_fnc_updateInterface}}] call CBA_fnc_addSetting;
-["mplus_pauseGestures", "CHECKBOX", ["Pause ACE map gestures", "Pause pointing gestures while a MarkersPlus tool is open."], ["MarkersPlus","Interface"],
+["mplus_pauseGestures", "CHECKBOX", ["Pause ACE map gestures", "Pause pointing gestures while the marker, contact or saved-plan panel is open."], ["MarkersPlus","Interface"],
     true, 2, {if (hasInterface) then {call mplus_fnc_updateMapGestures}}] call CBA_fnc_addSetting;
 private _channels = [[-2,3,1,2,4,0],["Local only (you)","Group","Side","Command","Vehicle","Global (everyone)"],2];
 ["mplus_defaultChannel", "LIST", ["Default sharing channel", "Sharing for new markers. Falls back to Local when unavailable."], ["MarkersPlus","Markers"],

@@ -23,7 +23,7 @@ _markers sort true;
 missionNamespace setVariable ["mplus_markerLibrary", _markers];
 missionNamespace setVariable ["mplus_markerSerial", 0];
 
-["MarkersPlus", "togglePanel", ["Toggle marker panel", "Open or close MarkersPlus while the map is open."], {
+["MarkersPlus", "togglePanel", ["Toggle marker panel", "Open or close the marker panel while the map is open."], {
     if (!visibleMap || {isNull findDisplay 12}) exitWith {false};
     [] call mplus_fnc_togglePanel;
     true

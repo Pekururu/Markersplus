@@ -5,7 +5,7 @@ if (isServer) then {
         params ["_unit","_marker","_record","_channel"];
         if (isNull _unit || {!isPlayer _unit} || {!(_channel in [0,1,2,3,4])}) exitWith {};
         private _prefix = format ["_USER_DEFINED #%1/",owner _unit];
-        if ((_marker find _prefix) != 0 || {(_marker select [count _marker - 11]) != "/MP_CONTACT"}) exitWith {};
+        if ((_marker find _prefix) != 0 || {!([_marker] call mplus_fnc_isContactName)}) exitWith {};
         private _cache = missionNamespace getVariable ["mplus_contactServer",createHashMap];
         private _previous = _cache getOrDefault [_marker,[]];
         if (_record isEqualTo []) exitWith {

@@ -15,7 +15,7 @@ if (_active) then {
 } else {_status ctrlSetText "Placement stopped. Esc closes the panel."};
 if (!_active) then {
     _display setVariable ["mplus_duplicateStyle",[]];
-    (_panel controlsGroupCtrl MP_TITLE) ctrlSetText (["MarkersPlus","MarkersPlus: Edit"] select ((_display getVariable ["mplus_selectedMarker",""]) != ""));
+    (_panel controlsGroupCtrl MP_TITLE) ctrlSetText (["Markers","Edit marker"] select ((_display getVariable ["mplus_selectedMarker",""]) != ""));
 };
 _display setVariable ["mplus_placing",_active];
 _display setVariable ["mplus_mouseDown",[]];

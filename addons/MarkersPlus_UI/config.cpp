@@ -66,6 +66,7 @@ class CfgFunctions
             class contactMapInput {};
             class drawContact {};
             class isContact {};
+            class isContactName {};
             class initContacts {};
             class contactAudience {};
             class validateContact {};
