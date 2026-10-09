@@ -2,6 +2,8 @@
 
 An extended marker library and placement panel for Arma 3. Includes 50 symbols under Tasks, Movement and Maneuver, and Points in the standard marker picker.
 
+Install through the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3364990415), and enable CBA_A3 and ACE3 in the launcher. This repository contains the mod source; download the playable build from the Workshop.
+
 ## Placement panel
 
 New markers default to **Side**, independently of your active chat channel. The default is configurable; an unavailable channel falls back to **Local only (you)**.
@@ -48,7 +50,7 @@ Personal vanilla icons loaded from plans also use the MarkersPlus editor, preser
 
 **Export** copies the selected plan as text. **Import** reads that text from the clipboard into your profile; it does not place markers. Replacing a plan during import and deleting a saved plan both require a second click within five seconds. Clipboard data is parsed as arrays, never executed as code. Import/export uses MarkersPlus's own versioned format; Map Marker Setter profiles are not automatically imported. Plans support up to 5,000 markers and 10,000 points per line. Existing v1 plans remain readable and unchanged until explicitly overwritten. Plans containing full reports use format v2; ordinary plans still export as v1. Older builds reject v2 imports rather than dropping report fields. The updated plan registry uses a separate profile key and retains the previous registry as a rollback copy; previous builds do not see later changes made in the new registry. Old plans that saved contact icons as ordinary markers cannot recover report details that were never stored.
 
-For this build, check favorites after restarting Arma, then save a plan containing MarkersPlus and vanilla icons, a drawn line and an area. Load it in another mission on the same terrain. Check appearance and coordinates, Local privacy, Side sharing, Undo after moving/editing, and import/export. Check the ACE entry after respawn, and the terrain and missing-addon load guards. In multiplayer, check another player's view and a player joining later on both a hosted and dedicated server. In-game verification belongs to the user.
+
 
 ## Contact reports
 
@@ -83,59 +85,3 @@ Contact marker names preserve Arma's native owner/marker/channel format. New rep
 Saved map plans now preserve full contact reports, including through clipboard import/export. Loading restores them as selectable reports owned by the loading player, while preserving the original observer, observer position and observation date/time. The selected load channel applies to the restored reports. Local loads keep full details local; shared loads publish them through the existing channel-scoped server handling. Undo removes the created markers and their report metadata. Saving is blocked if one of your contact markers has missing report details, rather than silently losing them.
 
 For manual testing, create Unknown, Friendly, Hostile and Civilians reports with unknown and entered counts. Check map dragging, changing the chosen point, Details expansion, movement direction, invalid count/time feedback, Copy report, New, selection and deletion. Update a note and confirm observation time remains; use Now and confirm reporter position/time refresh. Check Local privacy and ACE movement, then Group/Side visibility and read-only full details with another player. With MarkersPlus loaded on a dedicated server, check a joining player receives the allowed reports and a player on another side does not. Existing marker editing, favorites, duplication and plans remain available through the pin icon.
-
-## Build
-
-Install Arma 3 Tools through Steam, then run from the repository root:
-
-```powershell
-.\tools\build.ps1
-```
-
-The script finds Arma 3 Tools in your Steam libraries. You can also pass `-ToolsPath 'D:\SteamLibrary\steamapps\common\Arma 3 Tools'` or set `ARMA3_TOOLS`.
-
-The output is `Testing\@MarkersPlus` inside the Arma 3 installation, ready to load as a local mod. The folder contains `mod.cpp`, this README, `addons\MarkersPlus.pbo`, and `addons\MarkersPlus_UI.pbo`. Add that `@MarkersPlus` folder through the launcher's Local mod option and enable CBA_A3 and ACE3.
-
-The script looks for Arma 3 beside Arma 3 Tools. If the game is in another library, pass `-ArmaPath 'D:\SteamLibrary\steamapps\common\Arma 3'` or set `ARMA3_PATH`. To build elsewhere, pass `-OutputDirectory '.\dist\@MarkersPlus'`.
-
-The PBOs are unsigned. Signing for servers is a separate step using your own key.
-
-The build validates both configs and uses Addon Builder with the explicit `markersplus` and `markersplus_ui` prefixes. Only addon source and runtime data are staged for packing. Temporary build files stay in `.build`. In-game testing is manual.
-
-For a manual Addon Builder build, use `addons\MarkersPlus` as the source, set the addon prefix to `markersplus`, enable binarization, and include `*.paa` in the files copied directly. `A3_Data_F` is required because it defines the inherited `CfgMods/Mod_Base` class.
-
-Build `addons\MarkersPlus_UI` separately with prefix `markersplus_ui`, binarization enabled, and `*.sqf;*.hpp` copied directly. Its dependencies are `mplus_markers`, `A3_UI_F`, `cba_xeh`, `cba_keybinding`, `cba_settings`, `ace_markers`, and `ace_interact_menu`.
-
-## Artwork
-
-The updated markers have editable SVG sources in `artwork\icons`; the two map-tool button icons are in `artwork\ui`. Both sets are regenerated by the artwork build. They use white artwork and transparency so Arma can apply marker colours. Keep shapes centred on the 256 × 256 canvas. Point symbols retain the point-symbol outline, with horizontal abbreviations; their centre is the marker coordinate, not the bottom tip.
-
-Install Node.js to regenerate these textures:
-
-```powershell
-.\tools\build.ps1 -RebuildIcons
-```
-
-This installs the locked SVG renderer, renders PNGs, and converts them with Arma 3 Tools' ImageToPAA. Arial Bold is used for lettering; install that font when reproducing exports on another system. PNG intermediates are not packed.
-
-`artwork\originals` contains decoded PNG copies of all original icons. They preserve the previous artwork for editing or comparison; the original vector sources were not available. Unchanged icons keep their existing PAA files. To convert an edited original PNG, use ImageToPAA and retain its existing PAA filename. Use a `_ca.png` input name to identify transparent artwork.
-
-Generic Point uses a 16-pixel canvas size; task, movement, and collection-point icons use 40. Waypoint retains the original cross artwork. All 49 previous marker class identifiers remain available, including the legacy spelling `mplus_supress`. The new marker is `mplus_detaineepoint`.
-
-## In-game check
-
-Load CBA_A3, ACE3, and the built mod. On the mission map, check the pin button and shortcut, search and category filtering, cursor preview, label, colour, size, and rotation. Confirm one placement stops the preview, including hold-to-rotate placement. Check map dragging, Esc cancellation before placement, and reopening the map without duplicate controls. Check that Delete still edits text fields normally.
-
-Place a Local only marker, delete it with the cursor and Delete, and confirm another player cannot see it. In multiplayer, check Group and Side visibility with players in different groups and sides. Confirm disabled channels are unavailable and that the normal map tools can edit and delete shared markers. These gameplay and network checks are performed manually by the user.
-
-Select personal and shared markers with the panel closed and open. Double-click your MarkersPlus markers and confirm the MarkersPlus editor opens; confirm vanilla markers still open ACE's editor. Check loaded options, then change each field and confirm it updates without Apply. Clear a numeric field temporarily, change the label or colour, and confirm the invalid number does not reset size or direction. Check pasting and cutting label text too. Enable ACE marker movement, including its owner-only permission option, then Alt-drag personal and shared markers. Confirm personal markers stay private and shared markers retain their channel. Check a joining player sees the final shared marker position after an ACE move or MarkersPlus edit. Delete a selected marker. Check selection from the standard marker picker, exclusion of other players' markers from the MarkersPlus editor, empty-space deselection, and ordinary map dragging.
-
-Check all three marker categories in Eden and the mission map. Place point, task, and movement markers over light and busy terrain; check colour, labels, size, and rotation. In particular, compare CCP, CKP, ASP, Guard, Screen, and Cover at normal zoom. Generic Point should remain a small, centred dot.
-
-Load an existing mission that uses MarkersPlus and check its marker types. Review the Arma RPT for config or missing-texture errors. Repeat the map check with the mods your group normally uses.
-
-For the UI and duplication pass, check the +/* favorite control, empty Favorites and search results, plan summaries and double-click loading. Duplicate a labeled Local marker and a Side marker; confirm the original stays in place, the copy retains its appearance/channel, hold-to-rotate works, and Esc cancels. Confirm successful placement clears the label and angle for the next marker.
-
-For full contact persistence, save a mixed plan with ordinary markers, a line/area and all four contact identifications. Restart or change mission on the same terrain, load Local and select each report: compare note, activity, movement, accuracy, reporter, observer grid and original observation time/date. Repeat with Side loading and another player, then check Undo and a joining player. Export/import the plan into another profile and verify full details. Load/export an existing v1 plan to check compatibility. These gameplay checks are delegated to the user.
-
-For the contact list, open it from the panel and ACE self-interaction. Check the attached dark background, all available reports and the empty state. Click rows and confirm the map centers on each marker and opens the report with the correct edit permissions while the list stays open. Move/update/delete reports while another player has the list open; check refreshed rows and Group/Side/Local visibility. Collapse/reopen the list and close/reopen the map to check controls do not duplicate. Confirm list clicks do not place or delete markers behind the panel. Leave count blank and create a report; check that it shows an unknown count.

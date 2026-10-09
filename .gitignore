@@ -1,5 +1,6 @@
 # Local documentation and presentation sources
 /docs/
+/tools/
 /artwork/branding/
 /screenshots/
 *.xcf
@@ -11,11 +12,13 @@
 /build/
 /dist/
 /Testing/
+/.hemttout/
 /keys/
 *.pbo
 *.bisign
 *.bikey
 *.biprivatekey
+*.hemttprivatekey
 *.zip
 *.7z
 
@@ -25,6 +28,11 @@ node_modules/
 *.rpt
 *.tmp
 *.bak
+*.cache
+*.sqfc
+texHeaders.bin
+*.swp
+*.swo
 .DS_Store
 Thumbs.db
 .vscode/
