@@ -21,6 +21,7 @@ _contactButton ctrlSetText "\markersplus_ui\data\contact_tool.paa";
 _contactButton ctrlSetTooltip "MarkersPlus: contact report";
 _contactButton ctrlCommit 0;
 _contactButton ctrlAddEventHandler ["ButtonClick",{[] call mplus_fnc_openContacts}];
+call mplus_fnc_updateInterface;
 // Input persists when the panel is closed so selecting a marker can open it.
 private _map = _display displayCtrl 51;
 _map ctrlAddEventHandler ["MouseButtonDown",{["down",_this] call mplus_fnc_handleMapInput}];

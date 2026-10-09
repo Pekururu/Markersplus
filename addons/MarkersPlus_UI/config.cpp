@@ -20,6 +20,8 @@ class CfgFunctions
             file="\markersplus_ui\functions";
             class attachMap {};
             class updateMapGestures {};
+            class updateInterface {};
+            class controlsHint {};
             class togglePanel {};
             class closePanel {};
             class filterMarkers {};

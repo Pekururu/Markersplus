@@ -3,7 +3,7 @@ disableSerialization;
 params ["_map","_mouse"];
 private _display = ctrlParent _map;
 private _down = _display getVariable ["mplus_mouseDown",[]];
-if (count _down < 5 || {!(_display getVariable ["mplus_placing",false])} || {_down select 4 != ""} || {diag_tickTime - (_down select 2) < MP_ROTATE_DELAY}) exitWith {[]};
+if (count _down < 5 || {!(_display getVariable ["mplus_placing",false])} || {_down select 4 != ""} || {diag_tickTime - (_down select 2) < (missionNamespace getVariable ["mplus_rotationDelay",0.3])}) exitWith {[]};
 private _anchor = _down select 3;
 private _cursor = _map ctrlMapScreenToWorld _mouse;
 private _center = _map ctrlMapWorldToScreen _anchor;

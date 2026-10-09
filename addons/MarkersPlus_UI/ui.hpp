@@ -215,7 +215,15 @@ class mplus_Panel: RscControlsGroupNoScrollbars
             idc=MP_STATUS; text="Choose a symbol, then click the map.";
             style=16; sizeEx="0.015 * safeZoneH";
             x="0.009 * safeZoneW"; y="0.596 * safeZoneH";
-            w="0.222 * safeZoneW"; h="0.036 * safeZoneH";
+            w="0.177 * safeZoneW"; h="0.036 * safeZoneH";
+        };
+        class ControlsHint: mplus_Text
+        {
+            idc=MP_CONTROLS; text="Controls"; sizeEx="0.013 * safeZoneH";
+            colorText[]={0.63,0.65,0.62,1};
+            x="0.19 * safeZoneW"; y="0.596 * safeZoneH";
+            w="0.041 * safeZoneW"; h="0.025 * safeZoneH";
+            onMouseEnter="[_this select 0,'markers'] call mplus_fnc_controlsHint";
         };
     };
 };

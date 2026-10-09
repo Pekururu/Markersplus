@@ -51,5 +51,6 @@ class Create: mplus_Button { idc=MP_CONTACT_CREATE; text="Create report"; x="0.0
 class Copy: mplus_Button { idc=MP_CONTACT_COPY; text="Copy report"; x="0.145 * safeZoneW"; y="0.55 * safeZoneH"; w="0.086 * safeZoneW"; h="0.031 * safeZoneH"; onButtonClick="[ctrlParent (_this select 0),'copy'] call mplus_fnc_contactAction"; };
 class Delete: mplus_Button { idc=MP_CONTACT_DELETE; text="Delete"; x="0.009 * safeZoneW"; y="0.603 * safeZoneH"; w="0.065 * safeZoneW"; h="0.028 * safeZoneH"; onButtonClick="[ctrlParent (_this select 0),'delete'] call mplus_fnc_contactAction"; };
 class Disable: mplus_Button { idc=MP_CONTACT_DISABLE; text="Mark as disabled"; x="0.08 * safeZoneW"; y="0.603 * safeZoneH"; w="0.151 * safeZoneW"; h="0.028 * safeZoneH"; onButtonClick="[ctrlParent (_this select 0),'disable'] call mplus_fnc_contactAction"; };
-class Status: mplus_Text { idc=MP_CONTACT_STATUS; text="Choose the observed location."; x="0.009 * safeZoneW"; y="0.584 * safeZoneH"; w="0.222 * safeZoneW"; h="0.018 * safeZoneH"; sizeEx="0.013 * safeZoneH"; };
+class Status: mplus_Text { idc=MP_CONTACT_STATUS; text="Choose the observed location."; x="0.009 * safeZoneW"; y="0.584 * safeZoneH"; w="0.177 * safeZoneW"; h="0.018 * safeZoneH"; sizeEx="0.013 * safeZoneH"; };
+class ControlsHint: mplus_Text { idc=MP_CONTACT_CONTROLS; text="Controls"; x="0.19 * safeZoneW"; y="0.584 * safeZoneH"; w="0.041 * safeZoneW"; h="0.018 * safeZoneH"; sizeEx="0.013 * safeZoneH"; colorText[]={0.63,0.65,0.62,1}; onMouseEnter="[_this select 0,'contacts'] call mplus_fnc_controlsHint"; };
 }; };

@@ -12,6 +12,7 @@ if (!_active && {visibleMap} && {!isNull _display}) then {
     } >= 0;
 };
 private _paused = missionNamespace getVariable ["mplus_mapGesturesPaused",false];
+_active = _active && {missionNamespace getVariable ["mplus_pauseGestures",true]};
 if (!_active && {!_paused}) exitWith {};
 if (_active) then {
     if (!_paused) then {

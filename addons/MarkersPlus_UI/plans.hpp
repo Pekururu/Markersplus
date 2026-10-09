@@ -19,7 +19,15 @@ class mplus_Plans
             idc=-1; text="MarkersPlus - Saved map plans";
             font="RobotoCondensedBold";
             x="safeZoneX + 0.30 * safeZoneW"; y="safeZoneY + 0.23 * safeZoneH";
-            w="0.35 * safeZoneW"; h="0.03 * safeZoneH";
+            w="0.30 * safeZoneW"; h="0.03 * safeZoneH";
+        };
+        class ControlsHint: mplus_Text
+        {
+            idc=MP_PLAN_CONTROLS; text="Controls"; sizeEx="0.013 * safeZoneH";
+            colorText[]={0.63,0.65,0.62,1};
+            x="safeZoneX + 0.62 * safeZoneW"; y="safeZoneY + 0.23 * safeZoneH";
+            w="0.041 * safeZoneW"; h="0.03 * safeZoneH";
+            onMouseEnter="[_this select 0,'plans'] call mplus_fnc_controlsHint";
         };
         class Close: mplus_Button
         {

@@ -18,7 +18,7 @@ class cfgMods
         dir="MarkersPlus";
         name="MarkersPlus";
         author="Pek";
-        picture="";
+        picture="\markersplus\data\logo.paa";
         logo="\markersplus\data\logo.paa";
         logoOver="\markersplus\data\logoOver.paa";
         logoSmall="\markersplus\data\logo.paa";

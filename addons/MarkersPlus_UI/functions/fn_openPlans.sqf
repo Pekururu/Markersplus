@@ -8,3 +8,4 @@ if (!isNull _display) then {
     _display setVariable ["mplus_mouseDown",[]];
 };
 createDialog "mplus_Plans";
+[(findDisplay MP_PLANS_DISPLAY) displayCtrl MP_PLAN_CONTROLS,"plans"] call mplus_fnc_controlsHint;

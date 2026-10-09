@@ -10,7 +10,7 @@ private _types = call mplus_fnc_contactTypes;
 {
     private _marker = _x;
     private _record = _records get _marker;
-    if ([_marker] call mplus_fnc_isContact) then {
+    if ([_marker] call mplus_fnc_isContact && {missionNamespace getVariable ["mplus_showDisabledReports",true] || {!(_record param [12,false])}}) then {
         private _index = _types findIf {(_x select 0) == (_record select 1)};
         private _type = (_types select (_index max 0)) select 2;
         if (_record select 1 == "Infantry" && {_record select 4 == "Civilians"}) then {_type = "PERS"};

@@ -9,6 +9,7 @@ if (!isNull (_display displayCtrl MP_PANEL)) exitWith {if (!_openOnly) then {[_d
 private _panel = _display ctrlCreate ["mplus_Panel",MP_PANEL];
 _panel ctrlSetPosition [safeZoneX + safeZoneW * 0.71, safeZoneY + safeZoneH * 0.18, safeZoneW * 0.24, safeZoneH * 0.64];
 _panel ctrlCommit 0;
+[_panel controlsGroupCtrl MP_CONTROLS,"markers"] call mplus_fnc_controlsHint;
 call mplus_fnc_updateMapGestures;
 _display setVariable ["mplus_initializing",true];
 _display setVariable ["mplus_placing",false];
@@ -47,7 +48,7 @@ _colors lbSetCurSel _colorIndex;
 
 private _channels = _panel controlsGroupCtrl MP_CHANNEL;
 private _channelIndex = 0;
-private _current = 1; // Default to Side independently of the active chat channel.
+private _current = missionNamespace getVariable ["mplus_defaultChannel",1];
 {
     _x params ["_name","_channel"];
     if ([_channel] call mplus_fnc_channelAvailable) then {

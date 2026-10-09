@@ -18,6 +18,7 @@ if (_createdPanel) then {
     _panel ctrlCommit 0;
 };
 _display setVariable ["mplus_contactInitializing",true];
+[_panel controlsGroupCtrl MP_CONTACT_CONTROLS,"contacts"] call mplus_fnc_controlsHint;
 call mplus_fnc_updateMapGestures;
 _display setVariable ["mplus_contactSelected",_marker];
 _display setVariable ["mplus_contactPicking",_marker == ""];
@@ -66,10 +67,10 @@ lbClear _typeControl;
 (_display displayCtrl MP_CONTACT_TIME) ctrlSetText (_record select 8);
 private _channels = _display displayCtrl MP_CONTACT_CHANNEL;
 lbClear _channels;
-private _selectedChannel = if (_marker == "") then {1} else {if ([_marker] call mplus_fnc_isLocalMarker) then {-2} else {markerChannel _marker}};
+private _selectedChannel = if (_marker == "") then {missionNamespace getVariable ["mplus_contactChannel",1]} else {if ([_marker] call mplus_fnc_isLocalMarker) then {-2} else {markerChannel _marker}};
 {
     _x params ["_label","_channel"];
-    if ([_channel] call mplus_fnc_channelAvailable || {_channel == _selectedChannel}) then {
+    if ([_channel] call mplus_fnc_channelAvailable || {_marker != "" && {_channel == _selectedChannel}}) then {
         private _row = _channels lbAdd _label; _channels lbSetValue [_row,_channel];
         if (_channel == _selectedChannel) then {_channels lbSetCurSel _row};
     };

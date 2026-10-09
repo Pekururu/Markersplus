@@ -1,3 +1,4 @@
+#include "\markersplus_ui\script_component.hpp"
 call mplus_fnc_initContacts;
 if (!hasInterface) exitWith {};
 
@@ -45,18 +46,21 @@ private _addPlansAction = {
     if (_class == "") exitWith {};
     private _registered = missionNamespace getVariable ["mplus_plansActionClasses",[]];
     if (_class in _registered) exitWith {};
-    private _action = ["mplus_plans","MarkersPlus: Saved map plans","",{
+    private _category = ["mplus_menu","M+","\markersplus\data\logo.paa",{},
+        {[_player,_target,[]] call ace_common_fnc_canInteractWith}] call ace_interact_menu_fnc_createAction;
+    private _path = [_class,1,["ACE_SelfActions"],_category] call ace_interact_menu_fnc_addActionToClass;
+    private _action = ["mplus_plans","Saved plans","",{
         [] call mplus_fnc_openPlans;
     },{[_player,_target,[]] call ace_common_fnc_canInteractWith}] call ace_interact_menu_fnc_createAction;
-    [_class,1,["ACE_SelfActions"],_action] call ace_interact_menu_fnc_addActionToClass;
-    private _contactAction = ["mplus_contacts","MarkersPlus: Contact report","",{
+    [_class,1,_path,_action] call ace_interact_menu_fnc_addActionToClass;
+    private _contactAction = ["mplus_contacts","Contact report","\markersplus_ui\data\contact_tool.paa",{
         [] call mplus_fnc_openContacts;
     },{[_player,_target,[]] call ace_common_fnc_canInteractWith}] call ace_interact_menu_fnc_createAction;
-    [_class,1,["ACE_SelfActions"],_contactAction] call ace_interact_menu_fnc_addActionToClass;
-    private _contactList = ["mplus_contactList","MarkersPlus: Contact list","",{
+    [_class,1,_path,_contactAction] call ace_interact_menu_fnc_addActionToClass;
+    private _contactList = ["mplus_contactList","Contact list","",{
         [] call mplus_fnc_openContactList;
     },{[_player,_target,[]] call ace_common_fnc_canInteractWith}] call ace_interact_menu_fnc_createAction;
-    [_class,1,["ACE_SelfActions"],_contactList] call ace_interact_menu_fnc_addActionToClass;
+    [_class,1,_path,_contactList] call ace_interact_menu_fnc_addActionToClass;
     _registered pushBack _class;
     missionNamespace setVariable ["mplus_plansActionClasses",_registered];
 };
@@ -66,4 +70,20 @@ if (!isNull player) then {[typeOf player] call _addPlansAction};
 
 ["MarkersPlus","contactReport",["Contact report","Open the contact report tool and choose a position on the map."],{
     [] call mplus_fnc_openContacts; true
+},{},[-1,[false,false,false]]] call CBA_fnc_addKeybind;
+
+["MarkersPlus","contactList",["Toggle contact list","Open the map and expand or collapse the contact list."],{
+    if (isNull player || {dialog}) exitWith {false};
+    [] call mplus_fnc_openContactList; true
+},{},[-1,[false,false,false]]] call CBA_fnc_addKeybind;
+["MarkersPlus","savedPlans",["Open saved plans","Save or load your map plans."],{
+    if (isNull player || {dialog}) exitWith {false};
+    [] call mplus_fnc_openPlans; true
+},{},[-1,[false,false,false]]] call CBA_fnc_addKeybind;
+["MarkersPlus","focusSearch",["Focus marker search","Focus the search field while the marker panel is open."],{
+    private _display = findDisplay 12;
+    if (!visibleMap || {isNull _display} || {dialog}) exitWith {false};
+    private _panel = _display displayCtrl MP_PANEL;
+    if (isNull _panel) exitWith {false};
+    ctrlSetFocus (_panel controlsGroupCtrl MP_SEARCH); true
 },{},[-1,[false,false,false]]] call CBA_fnc_addKeybind;
