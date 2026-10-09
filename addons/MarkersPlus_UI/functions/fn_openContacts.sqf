@@ -39,6 +39,7 @@ if (_record isEqualTo []) then {
         format ["%1 (%2)",name player,groupId group player],getPosWorld player,_d];
 };
 _display setVariable ["mplus_contactObserver",[_record select 9,+(_record select 10),+(_record select 11)]];
+_display setVariable ["mplus_contactDisabled",_record param [12,false]];
 _display setVariable ["mplus_contactPosition",if (_marker == "") then {[]} else {markerPos _marker}];
 private _fillCombo = {
     params ["_id","_values","_selected"];

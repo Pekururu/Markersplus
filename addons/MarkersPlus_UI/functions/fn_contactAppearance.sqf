@@ -29,4 +29,5 @@ if (!isClass (configFile >> "CfgMarkers" >> _type)) then {
         default {"mil_unknown"};
     };
 };
+if (_record param [12,false]) then {_color = "Color6_FD_F"};
 [_type,_color]

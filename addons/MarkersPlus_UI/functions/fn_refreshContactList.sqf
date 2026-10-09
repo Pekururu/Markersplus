@@ -18,7 +18,9 @@ private _types = call mplus_fnc_contactTypes;
         if (_count != "") then {_type = format ["%1 %2",_count,_type]};
         private _activity = _record select 3;
         if (_activity == "Moving") then {_activity = format ["%1 %2",_activity,_record select 6]};
-        _rows pushBack [_marker,[toUpper (_record select 4),toUpper _type,toUpper _activity,mapGridPosition markerPos _marker,_record select 8]];
+        private _disabled = _record param [12,false];
+        if (_disabled) then {_activity = "DISABLED"};
+        _rows pushBack [_marker,[toUpper (_record select 4),toUpper _type,toUpper _activity,mapGridPosition markerPos _marker,_record select 8],_disabled];
     };
 } forEach keys _records;
 _rows sort true;
@@ -32,9 +34,12 @@ private _selected = _display getVariable ["mplus_contactSelected",""];
 private _selection = -1;
 lnbClear _list;
 {
-    _x params ["_marker","_cells"];
+    _x params ["_marker","_cells","_disabled"];
     private _row = _list lnbAddRow _cells;
     _list lnbSetData [[_row,0],_marker];
+    if (_disabled) then {
+        for "_column" from 0 to 4 do {_list lnbSetColor [[_row,_column],[.55,.55,.55,1]]};
+    };
     if (_marker == _selected) then {_selection = _row};
 } forEach _rows;
 _list lnbSetCurSelRow _selection;

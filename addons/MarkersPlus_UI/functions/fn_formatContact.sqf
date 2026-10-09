@@ -23,6 +23,7 @@ private _labelActivity = switch _activity do {
 };
 if (_labelActivity != "") then {_labelParts pushBack _labelActivity};
 _labelParts pushBack _time;
+if (_record param [12,false]) then {_labelParts pushBack "DISABLED"};
 private _label = _labelParts joinString " | ";
 private _bearing = round (_origin getDir _position);
 _bearing = _bearing % 360;
@@ -35,4 +36,5 @@ private _lines = [format ["Contact: %1 %2. Identification: %3.",_quantity,_descr
     format ["Reporter: %1.",_reporter],
     format ["Map bearing %1 degrees | approx. %2 m from reporter's recorded grid %3.",_bearingText,_distance,mapGridPosition _origin]];
 if (_hasNote) then {_lines pushBack ("Note: " + _note)};
+if (_record param [12,false]) then {_lines insert [0,["Status: DISABLED. Contact marked as taken care of."]]};
 [toUpper _label,toUpper (_lines joinString toString [10])]

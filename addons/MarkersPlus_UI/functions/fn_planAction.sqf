@@ -100,6 +100,9 @@ private _result = switch (_action) do {
             if (_contact isNotEqualTo []) then {
                 _name = _name + "/MP_CONTACT";
                 _text = ([_contact,_pos] call mplus_fnc_formatContact) select 0;
+                ([_contact] call mplus_fnc_contactAppearance) params ["_contactType","_contactColor"];
+                _type = _contactType;
+                _color = _contactColor;
             };
             private _marker = if (_channel == -2) then {createMarkerLocal [_name,_pos]} else {createMarker [_name,_pos,_channel,player]};
             if (_marker == "") exitWith {_failed = true};

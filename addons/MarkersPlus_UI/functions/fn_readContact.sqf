@@ -17,6 +17,8 @@ private _record = [1,[MP_CONTACT_TYPE] call _data,toString _countChars,
     [MP_CONTACT_ACTIVITY] call _data,[MP_CONTACT_AFFILIATION] call _data,[MP_CONTACT_ACCURACY] call _data,
     [MP_CONTACT_MOVEMENT] call _data,ctrlText (_display displayCtrl MP_CONTACT_NOTE),
     ctrlText (_display displayCtrl MP_CONTACT_TIME),_observer select 0,_observer select 1,_observer select 2];
+// Active reports retain the legacy shape; only disabled reports need the extension.
+if (_display getVariable ["mplus_contactDisabled",false]) then {_record set [0,2]; _record pushBack true};
 if !([_record] call mplus_fnc_validateContact) exitWith {[]};
 private _observedDate = +(_record select 11);
 _observedDate set [3,parseNumber ((_record select 8) select [0,2])];

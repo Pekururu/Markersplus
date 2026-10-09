@@ -46,6 +46,31 @@ private _channels = _display displayCtrl MP_CONTACT_CHANNEL;
 private _channel = _channels lbValue (lbCurSel _channels);
 if !([_channel] call mplus_fnc_channelAvailable) exitWith {(_display displayCtrl MP_CONTACT_STATUS) ctrlSetText "Sharing channel unavailable."};
 private _records = missionNamespace getVariable ["mplus_contactRecords",createHashMap];
+if (_action == "disable") exitWith {
+    if (_selected == "") exitWith {};
+    // Toggle the saved observation, independently of incomplete or unsent field edits.
+    private _saved = +(_records getOrDefault [_selected,[]]);
+    if !([_saved] call mplus_fnc_validateContact) exitWith {};
+    private _disabled = !(_saved param [12,false]);
+    _saved resize 12;
+    _saved set [0,1];
+    if (_disabled) then {_saved set [0,2]; _saved pushBack true};
+    ([_saved] call mplus_fnc_contactAppearance) params ["_type","_color"];
+    _selected setMarkerTypeLocal _type;
+    _selected setMarkerColorLocal _color;
+    private _label = ([_saved,markerPos _selected] call mplus_fnc_formatContact) select 0;
+    if (_channel == -2) then {_selected setMarkerTextLocal _label} else {
+        _selected setMarkerText _label;
+        [_selected] call mplus_fnc_syncAceMarker;
+        ["mplus_contactPublish",[player,_selected,_saved,_channel]] call CBA_fnc_serverEvent;
+    };
+    _records set [_selected,_saved];
+    _display setVariable ["mplus_contactLoaded",_saved];
+    _display setVariable ["mplus_contactDisabled",_disabled];
+    [_display] call mplus_fnc_refreshContact;
+    [_display] call mplus_fnc_refreshContactList;
+    (_display displayCtrl MP_CONTACT_STATUS) ctrlSetText (["Contact reactivated.","Contact disabled."] select _disabled);
+};
 if (_action == "delete") exitWith {
     if (_selected == "") exitWith {};
     if (_channel == -2) then {deleteMarkerLocal _selected} else {
