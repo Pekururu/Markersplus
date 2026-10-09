@@ -51,15 +51,15 @@ private _activity = _display displayCtrl MP_CONTACT_ACTIVITY;
 (_display displayCtrl MP_CONTACT_MOVEMENT) ctrlSetTooltip "Direction the contact is moving; set Activity to Moving to enable this field.";
 (_display displayCtrl MP_CONTACT_MOVEMENT) ctrlEnable (_editable && {(_activity lbData (lbCurSel _activity)) == "Moving"});
 (_display displayCtrl MP_CONTACT_LOCATION) ctrlSetText (if (_position isEqualTo []) then {"Click map to set location"} else {format ["Grid %1%2",mapGridPosition _position,if (_editable) then {" / change"} else {""}]});
-private _preview = "Pick the observed location on the map.";
-if (_missing) then {_preview = "Full report details are unavailable. Shared details require MarkersPlus on the server and reporting client."} else {
-    if (_record isEqualTo []) then {_preview = "Enter a count using digits, or leave it blank. Observation time must use HH:MM (00:00 to 23:59)."} else {
-        if (_position isNotEqualTo []) then {_preview = ([_record,_position] call mplus_fnc_formatContact) select 1};
+private _preview = text "Pick the observed location on the map.";
+if (_missing) then {_preview = text "Full report details are unavailable. Shared details require MarkersPlus on the server and reporting client."} else {
+    if (_record isEqualTo []) then {_preview = text "Enter a count using digits, or leave it blank. Observation time must use HH:MM (00:00 to 23:59)."} else {
+        if (_position isNotEqualTo []) then {_preview = ([_record,_position] call mplus_fnc_formatContact) select 2};
     };
 };
 // Fit the content instead of reserving a tall scrollable blank area.
 private _text = _display displayCtrl MP_CONTACT_PREVIEW;
-_text ctrlSetText _preview;
+_text ctrlSetStructuredText _preview;
 private _textHeight = (ctrlTextHeight _text + .006 * safeZoneH) max (.025 * safeZoneH);
 _pos = ctrlPosition _text;
 _pos set [3,_textHeight];

@@ -18,6 +18,7 @@ if (_createdPanel) then {
     _panel ctrlCommit 0;
 };
 _display setVariable ["mplus_contactInitializing",true];
+call mplus_fnc_updateMapGestures;
 _display setVariable ["mplus_contactSelected",_marker];
 _display setVariable ["mplus_contactPicking",_marker == ""];
 _display setVariable ["mplus_contactDown",[]];

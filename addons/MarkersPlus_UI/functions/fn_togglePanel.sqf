@@ -9,6 +9,7 @@ if (!isNull (_display displayCtrl MP_PANEL)) exitWith {if (!_openOnly) then {[_d
 private _panel = _display ctrlCreate ["mplus_Panel",MP_PANEL];
 _panel ctrlSetPosition [safeZoneX + safeZoneW * 0.71, safeZoneY + safeZoneH * 0.18, safeZoneW * 0.24, safeZoneH * 0.64];
 _panel ctrlCommit 0;
+call mplus_fnc_updateMapGestures;
 _display setVariable ["mplus_initializing",true];
 _display setVariable ["mplus_placing",false];
 _display setVariable ["mplus_selectedMarker",""];

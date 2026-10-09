@@ -58,6 +58,5 @@ if (_display getVariable ["mplus_contactPicking",false]) then {
     };
 };
 if (_position isNotEqualTo []) then {
-    _map drawIcon [getText (configFile >> "CfgMarkers" >> "mil_circle" >> "icon"),[1,0.85,0.15,1],
-        _position,40,40,0,"",0,0,"RobotoCondensed"];
+    [_map,_position,_selected] call mplus_fnc_drawSelection;
 };

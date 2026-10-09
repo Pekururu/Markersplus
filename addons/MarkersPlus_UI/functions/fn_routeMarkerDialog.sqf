@@ -2,6 +2,12 @@ disableSerialization;
 params ["_dialog"];
 private _mapDisplay = displayParent _dialog;
 if (isNull _mapDisplay || {ctrlIDD _mapDisplay != 12}) exitWith {false};
+if (diag_tickTime < (_mapDisplay getVariable ["mplus_numberedDialogUntil",-1])) exitWith {
+    _mapDisplay setVariable ["mplus_numberedDialogUntil",-1];
+    _dialog setVariable ["mplus_routed",true];
+    _dialog closeDisplay 2;
+    true
+};
 private _mouseOver = ctrlMapMouseOver (_mapDisplay displayCtrl 51);
 if ((_mouseOver param [0,""]) != "marker") exitWith {false};
 private _marker = _mouseOver param [1,""];

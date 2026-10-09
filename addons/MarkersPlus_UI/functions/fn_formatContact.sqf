@@ -1,4 +1,4 @@
-// Return [short map label, full readable report]. Values are player-entered observations.
+// Return [short map label, full readable report, compact structured preview].
 params ["_record","_position"];
 _record params ["_version","_type","_count","_activity","_affiliation","_accuracy","_movement","_note","_time","_reporter","_origin","_date"];
 private _civilianPeople = _affiliation == "Civilians" && {_type == "Infantry"};
@@ -42,4 +42,25 @@ private _lines = [format ["Contact: %1 %2. Identification: %3.",_quantity,_descr
     format ["Map bearing %1 degrees | approx. %2 m from reporter's recorded grid %3.",_bearingText,_distance,mapGridPosition _origin]];
 if (_hasNote) then {_lines pushBack ("Note: " + _note)};
 if (_record param [12,false]) then {_lines insert [0,["Status: DISABLED. Contact marked as taken care of."]]};
-[toUpper _label,toUpper (_lines joinString toString [10])]
+// Compose literal text so player-entered notes cannot be interpreted as markup.
+private _previewParts = [];
+private _addPreviewLine = {
+    params ["_heading","_value"];
+    private _headingText = text (_heading + ": ");
+    _headingText setAttributes ["color","#A0A69E","font","RobotoCondensedBold"];
+    private _valueText = text _value;
+    _valueText setAttributes ["color","#FFFFFF"];
+    _previewParts append [_headingText,_valueText,lineBreak];
+};
+if (_record param [12,false]) then {["Status","Disabled"] call _addPreviewLine};
+["Location",format ["%1 · %2° · ~%3 m",mapGridPosition _position,_bearingText,_distance]] call _addPreviewLine;
+private _referenceHint = text "From reporter's recorded position";
+_referenceHint setAttributes ["color","#A0A69E","size","0.85"];
+_previewParts append [_referenceHint,lineBreak];
+["Type",if (_civilianPeople) then {"People"} else {_definition select 1}] call _addPreviewLine;
+["Activity",if (_activity == "Unknown") then {"Unknown"} else {_activityText}] call _addPreviewLine;
+["Count",if (_count == "") then {"Unknown"} else {_labelCount}] call _addPreviewLine;
+["Observed",_time] call _addPreviewLine;
+_previewParts pushBack lineBreak;
+["Notes",if (_hasNote) then {_note} else {"None"}] call _addPreviewLine;
+[toUpper _label,_lines joinString toString [10],composeText _previewParts]

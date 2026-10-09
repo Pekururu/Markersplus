@@ -12,16 +12,7 @@ if (_selected != "") then {
         [_display,""] call mplus_fnc_selectMarker;
         _selected = "";
     } else {
-        // Screen-sized outline stays readable at every zoom without a real marker.
-        private _center = _map ctrlMapWorldToScreen (markerPos _selected);
-        private _radius = 8 + 0.5 * getNumber (configFile >> "CfgMarkers" >> markerType _selected >> "size") * (selectMax (markerSize _selected));
-        private _corners = [[-1,-1],[1,-1],[1,1],[-1,1]] apply {
-            _map ctrlMapScreenToWorld [(_center select 0) + (_x select 0) * _radius * pixelW,
-                (_center select 1) + (_x select 1) * _radius * pixelH]
-        };
-        for "_i" from 0 to 3 do {
-            _map drawLine [_corners select _i,_corners select ((_i + 1) % 4),[1,0.85,0.15,1]];
-        };
+        [_map,markerPos _selected,_selected] call mplus_fnc_drawSelection;
     };
 };
 if !(_display getVariable ["mplus_placing",false]) exitWith {};

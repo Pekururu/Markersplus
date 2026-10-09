@@ -5,17 +5,38 @@ _event params ["_map","_button","_x","_y","_shift","_ctrl","_alt"];
 private _display = ctrlParent _map;
 if (!isNull (_display displayCtrl MP_CONTACT_PANEL)) exitWith {[_mode,_event] call mplus_fnc_contactMapInput};
 private _panel = _display displayCtrl MP_PANEL;
-// Ignore panel clicks and leave modified input (including ACE Alt-drag) intact.
+// Ignore panel clicks; numbered placement shares ACE's Alt-double-click gesture.
 private _overPanel = false;
 if (!isNull _panel) then {
     (ctrlPosition _panel) params ["_px","_py","_pw","_ph"];
     _overPanel = _x >= _px && {_x <= _px + _pw} && {_y >= _py} && {_y <= _py + _ph};
 };
-if (_overPanel) exitWith {_display setVariable ["mplus_mouseDown",[]]; true};
+if (_overPanel) exitWith {
+    _display setVariable ["mplus_mouseDown",[]];
+    true
+};
 (ctrlPosition _map) params ["_mx","_my","_mw","_mh"];
 if (_x < _mx || {_x > _mx + _mw} || {_y < _my} || {_y > _my + _mh} || {
-    _button != 0 || {_shift || _ctrl || _alt}
+    _button != 0
 }) exitWith {
+    _display setVariable ["mplus_mouseDown",[]];
+    false
+};
+if (!isNull _panel && {_mode == "double"} && {_alt} && {!_shift && {!_ctrl}}) exitWith {
+    _display setVariable ["mplus_mouseDown",[]];
+    // The engine may still open its marker dialog after the control event.
+    _display setVariable ["mplus_numberedDialogUntil",diag_tickTime + 0.25];
+    private _overMarker = ([_map,[_x,_y]] call mplus_fnc_markerAtCursor) != "" || {
+        ((ctrlMapMouseOver _map) param [0,""]) == "marker"
+    };
+    if (_overMarker) exitWith {
+        (_panel controlsGroupCtrl MP_STATUS) ctrlSetText "Alt-double-click an empty map position to add the next number.";
+        true
+    };
+    [_display,_map ctrlMapScreenToWorld [_x,_y]] call mplus_fnc_placeNumbered;
+    true
+};
+if (_shift || {_ctrl || _alt}) exitWith {
     _display setVariable ["mplus_mouseDown",[]];
     false
 };

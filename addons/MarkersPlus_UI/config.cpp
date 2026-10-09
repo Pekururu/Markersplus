@@ -19,6 +19,7 @@ class CfgFunctions
         {
             file="\markersplus_ui\functions";
             class attachMap {};
+            class updateMapGestures {};
             class togglePanel {};
             class closePanel {};
             class filterMarkers {};
@@ -26,8 +27,11 @@ class CfgFunctions
             class channelAvailable {};
             class setPlacement {};
             class drawPreview {};
+            class drawSelection {};
             class handleMapInput {};
             class placeMarker {};
+            class placeNumbered {};
+            class nextMarkerLabel {};
             class deleteLocalMarker {};
             class isOwnMarker {};
             class markerAtCursor {};

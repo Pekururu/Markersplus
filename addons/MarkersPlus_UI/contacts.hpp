@@ -35,12 +35,17 @@ class Time: mplus_Edit { idc=MP_CONTACT_TIME; text=""; x="0.114 * safeZoneW"; y=
 class Now: mplus_Button { idc=MP_CONTACT_NOW; text="Now"; x="0.193 * safeZoneW"; y="0.02 * safeZoneH"; w="0.029 * safeZoneW"; h="0.028 * safeZoneH"; onButtonClick="[ctrlParent (_this select 0),'now'] call mplus_fnc_contactAction"; sizeEx="0.014 * safeZoneH"; tooltip="Record a new observation time and your current reporter position"; };
 class Note: mplus_Edit { idc=MP_CONTACT_NOTE; text=""; x="0 * safeZoneW"; y="0.073 * safeZoneH"; w="0.222 * safeZoneW"; h="0.054 * safeZoneH"; onKeyUp="[ctrlParent (_this select 0)] call mplus_fnc_refreshContact"; style=16; maxChars=200; tooltip="Description, equipment or landmark"; };
 }; };
-class PreviewTitle: mplus_Text { idc=MP_CONTACT_PREVIEW_TITLE; text="Report preview"; x="0.009 * safeZoneW"; y="0.287 * safeZoneH"; w="0.222 * safeZoneW"; h="0.02 * safeZoneH"; font="RobotoCondensedBold"; sizeEx="0.016 * safeZoneH"; };
+class PreviewTitle: mplus_Text { idc=MP_CONTACT_PREVIEW_TITLE; text="Report preview"; x="0.009 * safeZoneW"; y="0.287 * safeZoneH"; w="0.222 * safeZoneW"; h="0.02 * safeZoneH"; font="RobotoCondensedBold"; sizeEx="0.016 * safeZoneH"; colorText[]={1,0.7294118,0.1490196,1}; };
 class PreviewGroup: RscControlsGroup {
  idc=MP_CONTACT_PREVIEW_GROUP; x="0.009 * safeZoneW"; y="0.309 * safeZoneH";
  w="0.222 * safeZoneW"; h="0.231 * safeZoneH";
  class controls {
-class Preview: mplus_Text { idc=MP_CONTACT_PREVIEW; text="Pick the observed location on the map."; x="0 * safeZoneW"; y="0 * safeZoneH"; w="0.21 * safeZoneW"; h="0.35 * safeZoneH"; style=16; sizeEx="0.015 * safeZoneH"; };
+class Preview: RscStructuredText {
+ idc=MP_CONTACT_PREVIEW; text="Pick the observed location on the map.";
+ x="0 * safeZoneW"; y="0 * safeZoneH"; w="0.21 * safeZoneW"; h="0.025 * safeZoneH";
+ size="0.015 * safeZoneH"; colorBackground[]={0,0,0,0};
+ class Attributes { font="RobotoCondensed"; color="#FFFFFF"; align="left"; valign="top"; shadow=0; size=1; };
+};
 }; };
 class Create: mplus_Button { idc=MP_CONTACT_CREATE; text="Create report"; x="0.009 * safeZoneW"; y="0.55 * safeZoneH"; w="0.13 * safeZoneW"; h="0.031 * safeZoneH"; onButtonClick="[ctrlParent (_this select 0),'submit'] call mplus_fnc_contactAction"; };
 class Copy: mplus_Button { idc=MP_CONTACT_COPY; text="Copy report"; x="0.145 * safeZoneW"; y="0.55 * safeZoneH"; w="0.086 * safeZoneW"; h="0.031 * safeZoneH"; onButtonClick="[ctrlParent (_this select 0),'copy'] call mplus_fnc_contactAction"; };

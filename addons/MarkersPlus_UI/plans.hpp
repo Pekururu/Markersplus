@@ -4,7 +4,7 @@ class mplus_Plans
     idd=MP_PLANS_DISPLAY;
     movingEnable=0;
     enableSimulation=1;
-    onLoad="uiNamespace setVariable ['mplus_plansDisplay',_this select 0]; [_this select 0] call mplus_fnc_refreshPlans";
+    onLoad="uiNamespace setVariable ['mplus_plansDisplay',_this select 0]; call mplus_fnc_updateMapGestures; [_this select 0] call mplus_fnc_refreshPlans";
     onUnload="uiNamespace setVariable ['mplus_plansDisplay',displayNull]";
     class controls
     {

@@ -12,6 +12,7 @@ _display setVariable ["mplus_duplicateStyle",[]];
 _display setVariable ["mplus_selectedMarker",""];
 _display setVariable ["mplus_gridTiles",[]];
 _display setVariable ["mplus_mouseDown",[]];
+_display setVariable ["mplus_numberedDialogUntil",-1];
 {
     _x params ["_control","_event","_id"];
     _control ctrlRemoveEventHandler [_event,_id];

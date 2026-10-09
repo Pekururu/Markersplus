@@ -1,6 +1,7 @@
 #include "script_component.hpp"
 
 class RscText;
+class RscStructuredText;
 class RscEdit;
 class RscCombo;
 class RscControlsGroup;
@@ -141,7 +142,7 @@ class mplus_Panel: RscControlsGroupNoScrollbars
         };
         class Label: mplus_Edit
         {
-            idc=MP_LABEL; text=""; maxChars=100; tooltip="Optional marker label; edits save immediately";
+            idc=MP_LABEL; text=""; maxChars=100; tooltip="Optional marker label; edits save immediately. Alt-double-click empty map positions to number markers using the current UI settings. A changed label seeds the sequence (e.g. CP 01 becomes CP 02).";
             onKeyUp="[ctrlParent (_this select 0)] call mplus_fnc_liveEdit";
             x="0.053 * safeZoneW"; y="0.412 * safeZoneH";
             w="0.178 * safeZoneW"; h="0.028 * safeZoneH";
