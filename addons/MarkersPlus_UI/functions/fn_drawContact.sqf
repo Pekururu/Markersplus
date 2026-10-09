@@ -8,13 +8,19 @@ private _selected = _display getVariable ["mplus_contactSelected",""];
 if (_selected != "" && {!(_selected in allMapMarkers)}) exitWith {
     [_display] call mplus_fnc_closeContacts;
 };
-// Newly arrived/updated shared details refresh a read-only view. Unsubmitted own drafts stay intact.
+// Refresh shared changes when the form is untouched; preserve unsubmitted drafts.
 if (_selected != "") then {
     private _record = (missionNamespace getVariable ["mplus_contactRecords",createHashMap]) getOrDefault [_selected,[]];
     private _loaded = _display getVariable ["mplus_contactLoaded",[]];
-    if (_record isNotEqualTo [] && {_record isNotEqualTo _loaded} && {
-        _display getVariable ["mplus_contactMissing",false] || {!(_display getVariable ["mplus_contactEditable",false])}
-    }) exitWith {
+    private _canEdit = [_selected] call mplus_fnc_canEditContact;
+    private _editable = _display getVariable ["mplus_contactEditable",false];
+    private _changed = _record isNotEqualTo _loaded;
+    private _clean = _changed && {!(_display getVariable ["mplus_contactPositionDirty",false])} && {
+        ([_display] call mplus_fnc_readContact) isEqualTo _loaded
+    };
+    if (_canEdit != _editable || {_changed && {
+        _record isEqualTo [] || {_display getVariable ["mplus_contactMissing",false]} || {!_editable} || {_clean}
+    }}) exitWith {
         if !(_display getVariable ["mplus_contactReload",false]) then {
             _display setVariable ["mplus_contactReload",true];
             [{params ["_display","_marker"]; if (!isNull _display) then {

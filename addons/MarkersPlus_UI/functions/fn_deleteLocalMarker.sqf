@@ -19,6 +19,16 @@ private _list = _display displayCtrl MP_CONTACT_LIST_PANEL;
 if (!isNull _list && {ctrlShown _list} && {[ctrlPosition _list,_mouse] call _inRect}) exitWith {true};
 private _closest = [_map,_mouse] call mplus_fnc_markerAtCursor;
 if (_closest == "") exitWith {false};
+// Contact reports share the same Delete permission as their update/status actions.
+if ([_closest] call mplus_fnc_isContact && {[_closest] call mplus_fnc_canEditContact}) exitWith {
+    private _channel = if ([_closest] call mplus_fnc_isLocalMarker) then {-2} else {markerChannel _closest};
+    if !([_channel] call mplus_fnc_channelAvailable) exitWith {true};
+    if (_channel == -2) then {deleteMarkerLocal _closest} else {deleteMarker _closest};
+    [_closest,_channel] call mplus_fnc_forgetContact;
+    ace_markers_userPlacedMarkers = ace_markers_userPlacedMarkers - [_closest];
+    if (_closest == (_display getVariable ["mplus_contactSelected",""])) then {[_display] call mplus_fnc_closeContacts};
+    true
+};
 // Shared markers retain native Delete behavior when the panel is closed.
 if !([_closest] call mplus_fnc_isLocalMarker && {[_closest] call mplus_fnc_ownsMapMarker}) exitWith {false};
 deleteMarkerLocal _closest;

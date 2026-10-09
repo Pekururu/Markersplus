@@ -142,7 +142,7 @@ private _result = switch (_action) do {
             _x params ["_marker","_contact"];
             _records set [_marker,_contact];
             if (_channel != -2) then {
-                ["mplus_contactPublish",[player,_marker,_contact,_channel]] call CBA_fnc_serverEvent;
+                [_marker,_contact,_channel] call mplus_fnc_publishContact;
             };
         } forEach _contactLoads;
         missionNamespace setVariable ["mplus_lastPlanLoad",_loaded];

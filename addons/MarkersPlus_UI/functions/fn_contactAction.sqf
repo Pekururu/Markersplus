@@ -39,8 +39,8 @@ if (_action == "copy") exitWith {
     };
 };
 if (!_editable) exitWith {};
-if (_selected != "" && {!([_selected] call mplus_fnc_ownsMapMarker)}) exitWith {
-    (_display displayCtrl MP_CONTACT_STATUS) ctrlSetText "Original report is no longer available.";
+if (_selected != "" && {!([_selected] call mplus_fnc_canEditContact)}) exitWith {
+    (_display displayCtrl MP_CONTACT_STATUS) ctrlSetText "Report unavailable or outside your sharing scope.";
 };
 private _channels = _display displayCtrl MP_CONTACT_CHANNEL;
 private _channel = _channels lbValue (lbCurSel _channels);
@@ -65,7 +65,7 @@ if (_action == "disable") exitWith {
     if (_channel == -2) then {_selected setMarkerTextLocal _label} else {
         _selected setMarkerText _label;
         [_selected] call mplus_fnc_syncAceMarker;
-        ["mplus_contactPublish",[player,_selected,_saved,_channel]] call CBA_fnc_serverEvent;
+        [_selected,_saved,_channel] call mplus_fnc_publishContact;
     };
     _records set [_selected,_saved];
     _display setVariable ["mplus_contactLoaded",_saved];
@@ -101,7 +101,7 @@ private _label = ([_record,_position] call mplus_fnc_formatContact) select 0;
 if (_channel == -2) then {_marker setMarkerTextLocal _label} else {
     _marker setMarkerText _label;
     [_marker] call mplus_fnc_syncAceMarker;
-    ["mplus_contactPublish",[player,_marker,_record,_channel]] call CBA_fnc_serverEvent;
+    [_marker,_record,_channel] call mplus_fnc_publishContact;
 };
 _records set [_marker,_record];
 ace_markers_userPlacedMarkers pushBackUnique _marker;

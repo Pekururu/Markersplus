@@ -31,8 +31,11 @@ private _record = _records getOrDefault [_marker,[]];
 _display setVariable ["mplus_contactLoaded",_record];
 private _missing = _marker != "" && {_record isEqualTo []};
 _display setVariable ["mplus_contactMissing",_missing];
-private _editable = _marker == "" || {!_missing && {[_marker] call mplus_fnc_ownsMapMarker}};
+private _editable = _marker == "" || {!_missing && {[_marker] call mplus_fnc_canEditContact}};
 _display setVariable ["mplus_contactEditable",_editable];
+if (_marker != "" && {_missing || {!_editable}}) then {
+    diag_log format ["[MarkersPlus] Contact opened with limited access: %1; clientOwner=%2; missing=%3; ownsMarker=%4; scopeKnown=%5",_marker,clientOwner,_missing,[_marker] call mplus_fnc_ownsMapMarker,_marker in (missionNamespace getVariable ["mplus_contactScopes",createHashMap])];
+};
 if (_record isEqualTo []) then {
     private _d = date;
     private _pad = {params ["_number"]; private _s=str _number; if (count _s<2) then {_s="0"+_s}; _s};
@@ -84,7 +87,7 @@ _channels ctrlEnable (_marker == "");
 (_display displayCtrl MP_CONTACT_DELETE) ctrlShow (_marker != "" && {_editable});
 (_display displayCtrl MP_CONTACT_CREATE) ctrlSetText (if (_marker == "") then {"Create report"} else {if (_editable) then {"Update report"} else {"Read only"}});
 (_display displayCtrl MP_CONTACT_TITLE) ctrlSetText (if (_marker == "") then {"Contact report"} else {"Contact details"});
-(_display displayCtrl MP_CONTACT_STATUS) ctrlSetText (if (_missing) then {"Details unavailable. Requesting from server."} else {if (_marker == "") then {"Click the observed location on the map."} else {if (_editable) then {"Change fields, then Update report."} else {"Report by another player. Read only."}}});
+(_display displayCtrl MP_CONTACT_STATUS) ctrlSetText (if (_missing) then {"Details unavailable. Requesting from server."} else {if (_marker == "") then {"Click the observed location on the map."} else {if (_editable) then {"Change fields, then Update report."} else {"Outside this report's sharing scope. Read only."}}});
 _display setVariable ["mplus_contactInitializing",false];
 [_display] call mplus_fnc_refreshContact;
 if (_createdPanel) then {

@@ -1,7 +1,7 @@
 params ["_channel",["_contact",false]];
 private _serial = missionNamespace getVariable ["mplus_markerSerial",0];
 private _name = "";
-while {_name == "" || {_name in allMapMarkers}} do {
+while {_name == "" || {_name in allMapMarkers} || {_name in (missionNamespace getVariable ["mplus_contactRevisions",createHashMap])}} do {
     _serial = (_serial + 1) % 1000000;
     // Keep the exact native owner/id/channel format. A trailing report tag can
     // make Arma interpret the channel as Global. Reserve numeric report IDs.

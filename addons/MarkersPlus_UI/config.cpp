@@ -69,6 +69,9 @@ class CfgFunctions
             class isContactName {};
             class initContacts {};
             class contactAudience {};
+            class canEditContact {};
+            class publishContact {};
+            class receiveContact {};
             class validateContact {};
             class contactAppearance {};
             class contactTypes {};
