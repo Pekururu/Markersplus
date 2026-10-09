@@ -13,7 +13,9 @@ class MovementTitle: mplus_Text { idc=-1; text="Movement direction"; x="0.123 * 
 class Identification: mplus_Combo { idc=MP_CONTACT_AFFILIATION; text=""; x="0.009 * safeZoneW"; y="0.102 * safeZoneH"; w="0.108 * safeZoneW"; h="0.03 * safeZoneH"; onLBSelChanged="[ctrlParent (_this select 0)] call mplus_fnc_refreshContact"; };
 class Movement: mplus_Combo { idc=MP_CONTACT_MOVEMENT; text=""; x="0.123 * safeZoneW"; y="0.212 * safeZoneH"; w="0.108 * safeZoneW"; h="0.03 * safeZoneH"; onLBSelChanged="[ctrlParent (_this select 0)] call mplus_fnc_refreshContact"; };
 class TypeTitle: mplus_Text { idc=-1; text="Type"; x="0.009 * safeZoneW"; y="0.135 * safeZoneH"; w="0.108 * safeZoneW"; h="0.02 * safeZoneH";  };
-class CountTitle: mplus_Text { idc=-1; text="Count (optional)"; x="0.123 * safeZoneW"; y="0.135 * safeZoneH"; w="0.108 * safeZoneW"; h="0.02 * safeZoneH";  };
+class CountTitle: mplus_Text { idc=-1; text="Count"; x="0.123 * safeZoneW"; y="0.135 * safeZoneH"; w="0.041 * safeZoneW"; h="0.02 * safeZoneH"; tooltip="Optional: leave blank if the count is unknown"; };
+class Estimate: RscCheckbox { idc=MP_CONTACT_ESTIMATE; x="0.166 * safeZoneW"; y="0.135 * safeZoneH"; w="0.012 * safeZoneW"; h="0.02 * safeZoneH"; onCheckedChanged="[ctrlParent (_this select 0)] call mplus_fnc_refreshContact"; tooltip="Estimated count: displays ~8 on the map and approximately 8 in the report. Blank still means unknown."; };
+class EstimateTitle: mplus_Text { idc=-1; text="Estimate"; x="0.18 * safeZoneW"; y="0.135 * safeZoneH"; w="0.051 * safeZoneW"; h="0.02 * safeZoneH"; sizeEx="0.015 * safeZoneH"; };
 class ActivityTitle: mplus_Text { idc=-1; text="Activity"; x="0.009 * safeZoneW"; y="0.19 * safeZoneH"; w="0.108 * safeZoneW"; h="0.02 * safeZoneH";  };
 class ChannelTitle: mplus_Text { idc=-1; text="Share with"; x="0.123 * safeZoneW"; y="0.08 * safeZoneH"; w="0.108 * safeZoneW"; h="0.02 * safeZoneH";  };
 class Type: mplus_Combo { idc=MP_CONTACT_TYPE; text=""; x="0.009 * safeZoneW"; y="0.157 * safeZoneH"; w="0.108 * safeZoneW"; h="0.03 * safeZoneH"; onLBSelChanged="[ctrlParent (_this select 0)] call mplus_fnc_refreshContact"; };

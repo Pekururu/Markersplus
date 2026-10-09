@@ -52,9 +52,12 @@ if (_action == "disable") exitWith {
     private _saved = +(_records getOrDefault [_selected,[]]);
     if !([_saved] call mplus_fnc_validateContact) exitWith {};
     private _disabled = !(_saved param [12,false]);
+    private _estimated = _saved param [13,false];
     _saved resize 12;
     _saved set [0,1];
-    if (_disabled) then {_saved set [0,2]; _saved pushBack true};
+    if (_estimated) then {_saved set [0,3]; _saved append [_disabled,true]} else {
+        if (_disabled) then {_saved set [0,2]; _saved pushBack true};
+    };
     ([_saved] call mplus_fnc_contactAppearance) params ["_type","_color"];
     _selected setMarkerTypeLocal _type;
     _selected setMarkerColorLocal _color;

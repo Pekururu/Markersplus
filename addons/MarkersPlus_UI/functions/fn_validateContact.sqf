@@ -1,7 +1,8 @@
 params ["_record"];
-if !(_record isEqualType [] && {count _record in [12,13]}) exitWith {false};
+if !(_record isEqualType [] && {count _record in [12,13,14]}) exitWith {false};
 _record params ["_version","_type","_count","_activity","_affiliation","_accuracy","_movement","_note","_time","_reporter","_origin","_date"];
-((_version isEqualTo 1 && {count _record == 12}) || {_version isEqualTo 2 && {count _record == 13} && {(_record select 12) isEqualType true}}) &&
+((_version isEqualTo 1 && {count _record == 12}) || {_version isEqualTo 2 && {count _record == 13} && {(_record select 12) isEqualType true}} ||
+{_version isEqualTo 3 && {count _record == 14} && {(_record select 12) isEqualType true} && {(_record select 13) isEqualType true}}) &&
 {_type in ((call mplus_fnc_contactTypes) apply {_x select 0})} &&
 {_count isEqualType "" && {_count == "" || {count _count <= 4 && {((toArray _count) findIf {_x < 48 || {_x > 57}}) < 0}}}} &&
 {_activity in ["Unknown","Stationary","Moving","Firing"]} && {_affiliation in ["Unknown","Friendly","Hostile","Civilians"]} &&

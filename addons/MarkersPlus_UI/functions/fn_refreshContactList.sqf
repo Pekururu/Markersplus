@@ -15,6 +15,7 @@ private _types = call mplus_fnc_contactTypes;
         private _type = (_types select (_index max 0)) select 2;
         if (_record select 1 == "Infantry" && {_record select 4 == "Civilians"}) then {_type = "PERS"};
         private _count = _record select 2;
+        if (_count != "" && {_record param [13,false]}) then {_count = "~" + _count};
         if (_count != "") then {_type = format ["%1 %2",_count,_type]};
         private _activity = _record select 3;
         if (_activity == "Moving") then {_activity = format ["%1 %2",_activity,_record select 6]};

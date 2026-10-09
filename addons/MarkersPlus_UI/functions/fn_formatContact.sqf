@@ -7,6 +7,11 @@ private _index = _types findIf {(_x select 0) == _type};
 private _definition = _types select (_index max 0);
 private _description = if (_civilianPeople) then {"people"} else {toLower (_definition select 1)};
 private _quantity = if (_count == "") then {"Count unknown"} else {_count};
+private _labelCount = if (_count == "") then {"?"} else {_count};
+if (_count != "" && {_record param [13,false]}) then {
+    _quantity = "approximately " + _count;
+    _labelCount = "~" + _count;
+};
 private _labelType = _definition select 2;
 if (_civilianPeople) then {_labelType = "PERS"};
 private _hasNote = (toArray _note) findIf {!(_x in [9,10,13,32])} >= 0;
@@ -14,7 +19,7 @@ if (_hasNote) then {_labelType = _labelType + "*"};
 private _activityText = if (_activity == "Unknown") then {"Activity unknown"} else {_activity};
 if (_activity == "Moving" && {_movement != "Unknown"}) then {_activityText = _activityText + " " + _movement};
 // The marker's colour/frame carries identification; text carries the observation.
-private _labelParts = [format ["%1 %2",if (_count == "") then {"?"} else {_count},_labelType]];
+private _labelParts = [format ["%1 %2",_labelCount,_labelType]];
 private _labelActivity = switch _activity do {
     case "Stationary": {"STATIC"};
     case "Moving": {if (_movement == "Unknown") then {"MOV"} else {"MOV " + _movement}};

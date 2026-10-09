@@ -29,6 +29,7 @@ if (_selected != "") then {
 private _inputs = [
     _display getVariable ["mplus_contactPosition",[]],
     ctrlText (_display displayCtrl MP_CONTACT_COUNT),ctrlText (_display displayCtrl MP_CONTACT_NOTE),
+    cbChecked (_display displayCtrl MP_CONTACT_ESTIMATE),
     ctrlText (_display displayCtrl MP_CONTACT_TIME)
 ];
 {

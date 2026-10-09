@@ -60,6 +60,7 @@ lbClear _typeControl;
 [MP_CONTACT_ACCURACY,["Estimated","Precise"],_record select 5] call _fillCombo;
 [MP_CONTACT_MOVEMENT,["Unknown","N","NE","E","SE","S","SW","W","NW"],_record select 6] call _fillCombo;
 (_display displayCtrl MP_CONTACT_COUNT) ctrlSetText (_record select 2);
+(_display displayCtrl MP_CONTACT_ESTIMATE) cbSetChecked (_record param [13,false]);
 (_display displayCtrl MP_CONTACT_NOTE) ctrlSetText (_record select 7);
 (_display displayCtrl MP_CONTACT_TIME) ctrlSetText (_record select 8);
 private _channels = _display displayCtrl MP_CONTACT_CHANNEL;
@@ -75,7 +76,7 @@ private _selectedChannel = if (_marker == "") then {1} else {if ([_marker] call 
 if (lbCurSel _channels < 0) then {_channels lbSetCurSel 0};
 {
     (_display displayCtrl _x) ctrlEnable _editable;
-} forEach [MP_CONTACT_TYPE,MP_CONTACT_COUNT,MP_CONTACT_ACTIVITY,MP_CONTACT_AFFILIATION,
+} forEach [MP_CONTACT_TYPE,MP_CONTACT_COUNT,MP_CONTACT_ESTIMATE,MP_CONTACT_ACTIVITY,MP_CONTACT_AFFILIATION,
     MP_CONTACT_ACCURACY,MP_CONTACT_TIME,MP_CONTACT_NOTE,MP_CONTACT_NOW,MP_CONTACT_LOCATION];
 _channels ctrlEnable (_marker == "");
 (_display displayCtrl MP_CONTACT_DELETE) ctrlShow (_marker != "" && {_editable});

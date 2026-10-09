@@ -5,6 +5,7 @@ class RscEdit;
 class RscCombo;
 class RscControlsGroup;
 class RscButton;
+class RscCheckbox;
 class RscControlsGroupNoScrollbars;
 
 class mplus_Text: RscText
