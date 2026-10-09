@@ -24,6 +24,6 @@ Open the map and use the pin button for markers or the crosshair for contact rep
 
 Change preferences under **Addon Options → MarkersPlus** and shortcuts under **Controls → Configure Addons → MarkersPlus**. Hover **Controls** in a panel for your current bindings and mouse gestures.
 
-For full shared contact reports in multiplayer, install MarkersPlus on the server and participating clients.
+For full shared contact reports in multiplayer, install MarkersPlus on the server and clients.
 
 Found a problem or have a suggestion? [Open an issue](https://github.com/Pekururu/Markersplus/issues).
