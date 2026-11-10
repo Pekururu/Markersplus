@@ -3,6 +3,7 @@
 class RscText;
 class RscStructuredText;
 class RscEdit;
+class RscXSliderH;
 class RscCombo;
 class RscControlsGroup;
 class RscButton;
@@ -177,17 +178,21 @@ class mplus_Panel: RscControlsGroupNoScrollbars
         {
             idc=MP_DIRECTION_TITLE; text="Angle"; x="0.123 * safeZoneW";
         };
-        class Size: mplus_Edit
+        class Size: RscXSliderH
         {
-            idc=MP_SIZE; text="1"; maxChars=5; tooltip="Size multiplier from 0.25 to 4";
-            onKeyUp="[ctrlParent (_this select 0)] call mplus_fnc_liveEdit";
+            idc=MP_SIZE; tooltip="Size multiplier from 0.25 to 4; right-click to reset to 1";
+            sliderRange[]={0.25,4}; sliderPosition=1; sliderStep=0.05; lineSize=0.05;
+            onSliderPosChanged="[ctrlParent (_this select 0)] call mplus_fnc_liveEdit";
+            onMouseButtonDown="if ((_this select 1) != 1) exitWith {false}; (_this select 0) sliderSetPosition 1; [ctrlParent (_this select 0)] call mplus_fnc_liveEdit; true";
             x="0.009 * safeZoneW"; y="0.516 * safeZoneH";
             w="0.108 * safeZoneW"; h="0.028 * safeZoneH";
         };
         class Direction: Size
         {
-            idc=MP_DIRECTION; text="0"; maxChars=8;
-            tooltip="Degrees clockwise from north"; x="0.123 * safeZoneW";
+            idc=MP_DIRECTION;
+            sliderRange[]={0,360}; sliderPosition=0; sliderStep=1; lineSize=1;
+            onMouseButtonDown="if ((_this select 1) != 1) exitWith {false}; (_this select 0) sliderSetPosition 0; [ctrlParent (_this select 0)] call mplus_fnc_liveEdit; true";
+            tooltip="Degrees clockwise from north; right-click to reset to 0"; x="0.123 * safeZoneW";
         };
         class Delete: mplus_Button
         {

@@ -10,7 +10,7 @@ private _center = _map ctrlMapWorldToScreen _anchor;
 private _pixels = [((_mouse select 0) - (_center select 0)) / pixelW,
     ((_mouse select 1) - (_center select 1)) / pixelH];
 private _panel = _display displayCtrl MP_PANEL;
-private _direction = parseNumber ctrlText (_panel controlsGroupCtrl MP_DIRECTION);
+private _direction = sliderPosition (_panel controlsGroupCtrl MP_DIRECTION);
 // Ignore tiny movements around the pivot, where the bearing is unstable.
 if (_pixels distance2D [0,0] >= 6) then {
     _direction = ((_cursor select 0) - (_anchor select 0)) atan2 ((_cursor select 1) - (_anchor select 1));

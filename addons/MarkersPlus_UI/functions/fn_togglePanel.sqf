@@ -21,8 +21,8 @@ private _options = +(missionNamespace getVariable ["mplus_lastOptions",[
 ]]);
 _display setVariable ["mplus_selectedType",_options select 0];
 (_panel controlsGroupCtrl MP_LABEL) ctrlSetText (_options select 1);
-(_panel controlsGroupCtrl MP_SIZE) ctrlSetText str (_options select 3);
-(_panel controlsGroupCtrl MP_DIRECTION) ctrlSetText str (_options select 4);
+(_panel controlsGroupCtrl MP_SIZE) sliderSetPosition (_options select 3);
+(_panel controlsGroupCtrl MP_DIRECTION) sliderSetPosition (_options select 4);
 
 private _categories = _panel controlsGroupCtrl MP_CATEGORY;
 {

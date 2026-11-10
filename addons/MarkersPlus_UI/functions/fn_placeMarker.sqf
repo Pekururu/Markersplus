@@ -55,7 +55,7 @@ if (!_numbered) then {
     _options set [4,0];
     missionNamespace setVariable ["mplus_lastOptions",_options];
     (_panel controlsGroupCtrl MP_LABEL) ctrlSetText "";
-    (_panel controlsGroupCtrl MP_DIRECTION) ctrlSetText "0";
+    (_panel controlsGroupCtrl MP_DIRECTION) sliderSetPosition 0;
 };
 _display setVariable ["mplus_lastPlaced",diag_tickTime];
 ace_markers_userPlacedMarkers pushBackUnique _marker;

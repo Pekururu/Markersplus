@@ -24,8 +24,8 @@ _display setVariable ["mplus_initializing",true];
 (_panel controlsGroupCtrl MP_CATEGORY) lbSetCurSel 0;
 _display setVariable ["mplus_selectedType",markerType _marker];
 (_panel controlsGroupCtrl MP_LABEL) ctrlSetText (markerText _marker);
-(_panel controlsGroupCtrl MP_SIZE) ctrlSetText str ((markerSize _marker) select 0);
-(_panel controlsGroupCtrl MP_DIRECTION) ctrlSetText str (markerDir _marker);
+(_panel controlsGroupCtrl MP_SIZE) sliderSetPosition ((markerSize _marker) select 0);
+(_panel controlsGroupCtrl MP_DIRECTION) sliderSetPosition (markerDir _marker);
 private _colors = _panel controlsGroupCtrl MP_COLOR;
 private _colorRow = -1;
 for "_i" from 0 to (lbSize _colors - 1) do {
