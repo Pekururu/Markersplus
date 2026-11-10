@@ -8,7 +8,7 @@ if (!visibleMap) exitWith {};
 private _panel = _display displayCtrl MP_PANEL;
 private _selected = _display getVariable ["mplus_selectedMarker",""];
 if (_selected != "") then {
-    if !([_selected] call mplus_fnc_isOwnMarker) then {
+    if !([_selected] call mplus_fnc_canEditMarker) then {
         [_display,""] call mplus_fnc_selectMarker;
         _selected = "";
     } else {

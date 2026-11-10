@@ -3,7 +3,7 @@ disableSerialization;
 params ["_display",["_marker",""]];
 private _panel = _display displayCtrl MP_PANEL;
 if (isNull _panel) exitWith {};
-if (_marker != "" && {!([_marker] call mplus_fnc_isOwnMarker)}) exitWith {};
+if (_marker != "" && {!([_marker] call mplus_fnc_canEditMarker)}) exitWith {};
 _display setVariable ["mplus_selectedMarker",_marker];
 _display setVariable ["mplus_editInputs",[]];
 [_display,false] call mplus_fnc_setPlacement;

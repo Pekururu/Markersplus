@@ -15,7 +15,7 @@ if (_inputs isEqualTo _before) exitWith {};
 _display setVariable ["mplus_editInputs",_inputs];
 // Loading a marker seeds the draft without writing anything back to it.
 if (_before isEqualTo [] || {(_before select 0) != _marker}) exitWith {};
-if !([_marker] call mplus_fnc_isOwnMarker) exitWith {[_display,""] call mplus_fnc_selectMarker};
+if !([_marker] call mplus_fnc_canEditMarker) exitWith {[_display,""] call mplus_fnc_selectMarker};
 private _options = [markerType _marker,markerText _marker,markerColor _marker,
     (markerSize _marker) select 0,markerDir _marker,0];
 // Only change fields the user touched; leave externally updated fields alone.

@@ -3,7 +3,7 @@ params ["_map",["_mouse",getMousePosition]];
 private _closest = "";
 private _distance = 1e10;
 {
-    if (([_x] call mplus_fnc_isOwnMarker || {[_x] call mplus_fnc_isContact && {
+    if (([_x] call mplus_fnc_canEditMarker || {[_x] call mplus_fnc_isContact && {
         [_x] call mplus_fnc_ownsMapMarker || {_x in (missionNamespace getVariable ["mplus_contactRecords",createHashMap])}
     }}) && {markerAlpha _x > 0}) then {
         private _screen = _map ctrlMapWorldToScreen (markerPos _x);

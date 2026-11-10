@@ -20,7 +20,7 @@ if (_next isEqualTo []) exitWith {
 _options set [1,_next select 0];
 private _style = _display getVariable ["mplus_duplicateStyle",[]];
 private _selected = _display getVariable ["mplus_selectedMarker",""];
-if (_selected != "" && {[_selected] call mplus_fnc_isOwnMarker}) then {
+if (_selected != "" && {[_selected] call mplus_fnc_canEditMarker}) then {
     _style = [(markerSize _selected) select 0,markerSize _selected,markerAlpha _selected,markerShadow _selected];
 };
 [_display,_position,-1,[_options,_style]] call mplus_fnc_placeMarker

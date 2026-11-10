@@ -36,6 +36,7 @@ class CfgFunctions
             class nextMarkerLabel {};
             class deleteLocalMarker {};
             class isOwnMarker {};
+            class canEditMarker {};
             class markerAtCursor {};
             class selectMarker {};
             class editMarker {};

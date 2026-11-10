@@ -4,7 +4,7 @@ params ["_display","_action",["_options",[]]];
 private _panel = _display displayCtrl MP_PANEL;
 if (isNull _panel) exitWith {};
 private _marker = _display getVariable ["mplus_selectedMarker",""];
-if !([_marker] call mplus_fnc_isOwnMarker) exitWith {
+if !([_marker] call mplus_fnc_canEditMarker) exitWith {
     [_display,""] call mplus_fnc_selectMarker;
     (_panel controlsGroupCtrl MP_STATUS) ctrlSetText "Marker no longer available. Select another.";
 };
