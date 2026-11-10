@@ -51,9 +51,15 @@ if (_mode == "double") exitWith {
     true
 };
 if (_mode == "down") exitWith {
+    private _marker = [_map,[_x,_y]] call mplus_fnc_markerAtCursor;
+    private _rotateExisting = _marker != "" && {[_marker] call mplus_fnc_canEditMarker};
+    if (_rotateExisting) then {
+        [true] call mplus_fnc_togglePanel;
+        [_display,_marker] call mplus_fnc_selectMarker;
+    };
     _display setVariable ["mplus_mouseDown",[_x,_y,diag_tickTime,
-        _map ctrlMapScreenToWorld [_x,_y],[_map,[_x,_y]] call mplus_fnc_markerAtCursor]];
-    _placing
+        _map ctrlMapScreenToWorld [_x,_y],_marker]];
+    _placing || _rotateExisting
 };
 private _down = _display getVariable ["mplus_mouseDown",[]];
 private _rotation = [_map,[_x,_y]] call mplus_fnc_rotationGesture;
@@ -61,7 +67,16 @@ _display setVariable ["mplus_mouseDown",[]];
 if (_down isEqualTo []) exitWith {_placing};
 if (_rotation isNotEqualTo []) exitWith {
     _rotation params ["_position","_direction"];
-    [_display,_position,_direction] call mplus_fnc_placeMarker;
+    private _marker = _down select 4;
+    if (_marker == "") then {
+        [_display,_position,_direction] call mplus_fnc_placeMarker;
+    } else {
+        if ([_marker] call mplus_fnc_canEditMarker) then {
+            if ([_marker] call mplus_fnc_isLocalMarker) then {_marker setMarkerDirLocal _direction} else {_marker setMarkerDir _direction};
+            [_marker] call mplus_fnc_syncAceMarker;
+            [_display,_marker] call mplus_fnc_selectMarker;
+        };
+    };
     true
 };
 if ((_down select [0,2]) distance2D [_x,_y] >= 0.008 * safeZoneW) exitWith {_placing};

@@ -13,8 +13,8 @@ private _names = _colors apply {_x select 1};
 private _channels = [[-2,3,1,2,4,0],["Local only (you)","Group","Side","Command","Vehicle","Global (everyone)"],2];
 ["mplus_defaultChannel", "LIST", ["Default sharing channel", "Sharing for new markers. Falls back to Local when unavailable."], ["MarkersPlus","Markers"],
     _channels, 2] call CBA_fnc_addSetting;
-["mplus_rotationDelay", "SLIDER", ["Hold duration before rotation", "Seconds to hold the mouse before aiming a new marker."], ["MarkersPlus","Markers"],
-    [0.15,0.75,0.3,2], 2] call CBA_fnc_addSetting;
+["mplus_rotationDelay", "SLIDER", ["Hold duration before rotation", "Seconds to hold the mouse before rotating a new or existing marker."], ["MarkersPlus","Markers"],
+    [0.15,0.75,0.5,2], 2] call CBA_fnc_addSetting;
 ["mplus_contactChannel", "LIST", ["Default sharing channel", "Sharing for new contact reports. Falls back to Local when unavailable."], ["MarkersPlus","Contact reports"],
     _channels, 2] call CBA_fnc_addSetting;
 ["mplus_showDisabledReports", "CHECKBOX", ["Show disabled reports in contact list", "Hiding a disabled report from the list leaves its map marker and saved details intact."], ["MarkersPlus","Contact reports"],

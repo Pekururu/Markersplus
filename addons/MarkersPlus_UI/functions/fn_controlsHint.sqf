@@ -22,7 +22,7 @@ private _lines = ["Controls"];
 } forEach [["togglePanel","Toggle marker panel"],["contactReport","Open contact report"],["contactList","Toggle contact list"],["savedPlans","Open saved plans"],["focusSearch","Focus marker search"]];
 _lines pushBack "";
 if (_tool == "markers") then {
-    _lines append ["Click: place marker",format ["Hold %1 s and aim: rotate",missionNamespace getVariable ["mplus_rotationDelay",0.3]],"Alt + double-click: next numbered marker","Right-click an icon: toggle favorite","Delete: delete selected marker"];
+    _lines append ["Click: place marker",format ["Hold %1 s and aim: rotate",missionNamespace getVariable ["mplus_rotationDelay",0.5]],"Hold an existing marker and aim: rotate; release saves","Alt + double-click: next numbered marker","Right-click an icon: toggle favorite","Delete: delete selected marker"];
 };
 if (_tool == "contacts") then {_lines append ["Click map: choose report location","Click a report marker: open details","List: browse received reports","Update report: submit changes"]};
 if (_tool != "plans") then {_lines append ["Alt + drag: ACE marker movement","Esc: cancel placement/picking, then close"]};

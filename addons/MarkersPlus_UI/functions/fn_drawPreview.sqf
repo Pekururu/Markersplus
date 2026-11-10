@@ -15,6 +15,21 @@ if (_selected != "") then {
         [_map,markerPos _selected,_selected] call mplus_fnc_drawSelection;
     };
 };
+private _held = _display getVariable ["mplus_mouseDown",[]];
+if (count _held >= 5 && {(_held select 4) != ""}) exitWith {
+    private _rotation = [_map,getMousePosition] call mplus_fnc_rotationGesture;
+    if (_rotation isEqualTo []) exitWith {};
+    _rotation params ["_position","_direction"];
+    private _marker = _held select 4;
+    private _config = configFile >> "CfgMarkers" >> markerType _marker;
+    private _pixels = getNumber (_config >> "size");
+    private _size = markerSize _marker;
+    private _rgba = [markerColor _marker] call mplus_fnc_markerColor;
+    _rgba set [3,markerAlpha _marker * 0.7];
+    _map drawIcon [getText (_config >> "icon"),_rgba,_position,
+        _pixels * (_size select 0),_pixels * (_size select 1),_direction,markerText _marker,0,0.035,"RobotoCondensed","right"];
+    _map drawLine [_position,_map ctrlMapScreenToWorld getMousePosition,[1,0.85,0.15,0.8]];
+};
 if !(_display getVariable ["mplus_placing",false]) exitWith {};
 private _mouse = getMousePosition;
 private _inRect = {
